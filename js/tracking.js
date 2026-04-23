@@ -5,8 +5,8 @@
  * 3) Po nasazení lišty se souhlasem volejte acceptMarketingCookies(true) při souhlasu.
  */
 (function () {
-  var GA4_ID = '';
-  var ADS_ID = '';
+  var GA4_ID = 'G-76VWCQRE7K';
+  var ADS_ID = 'AW-856619583';
   var BOOT_ID = GA4_ID || ADS_ID;
   if (!BOOT_ID) return;
 
@@ -51,5 +51,7 @@ window.acceptMarketingCookies = function (granted) {
   });
 };
 
-/** Volitelné: odeslání konverze po úspěšném formuláři (Google Ads → konverze → send_to). */
-window.ADS_CONVERSION_SEND_TO = '';
+/** Odeslání konverze po úspěšném formuláři (Google Ads → konverze → send_to). */
+window.ADS_CONVERSION_SEND_TO = 'AW-856619583/E8KDCIG1lqEcEL_0u5gD';
+/** Konverze pro klik na telefon / WhatsApp (Google Ads → konverze → send_to). */
+window.ADS_CONTACT_CLICK_SEND_TO = 'AW-856619583/bGtZCISliqEcEL_0u5gD';
