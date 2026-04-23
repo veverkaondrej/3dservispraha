@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0;1" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/main.css?v=20260423-1">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -673,7 +673,7 @@
     </div>
     <div class="reveal d2">
       <p class="form-hint" style="margin:0 0 1rem">Nejrychlejší odezva je po telefonu — <a href="tel:+420777705465" style="color:var(--orange2);text-decoration:none;font-weight:600">zavolejte</a>.</p>
-      <a href="https://wa.me/420777705465?text=Dobry%20den%2C%20mam%20zajem%20o%20vase%20sluzby." target="_blank" rel="noopener noreferrer" class="btn-wa">Napsat pres WhatsApp</a>
+      <a href="https://api.whatsapp.com/send?phone=420777705465&text=Dobry%20den%2C%20mam%20zajem%20o%20vase%20sluzby." target="_blank" rel="noopener noreferrer" class="btn-wa">Napsat pres WhatsApp</a>
       <form id="poptavka-form" enctype="multipart/form-data" method="POST" onsubmit="handleForm(event)">
         <input type="hidden" name="_subject" value="Nová poptávka — 3D Servis Praha">
         <input type="hidden" name="_template" value="table">
@@ -699,10 +699,10 @@
         <div class="fg"><label for="pf-popis">Popis *</label><textarea id="pf-popis" name="popis" placeholder="Popište problém nebo co potřebujete — čím víc víme, tím lépe vám pomůžeme..." required></textarea></div>
         <div class="fg">
           <label for="prilohy">Nahrát soubor (volitelné)</label>
-          <input type="file" id="prilohy" name="attachment" class="file-input-hidden" multiple accept=".stl,.step,.stp,.obj,.3mf,.iges,.igs,.dae,.fbx,.zip,.rar,.pdf,image/*">
-          <label for="prilohy" class="file-picker-btn">Vybrat soubory</label>
+          <input type="file" id="prilohy" name="attachment" class="file-input-hidden" accept=".stl,.step,.stp,.obj,.3mf,.iges,.igs,.dae,.fbx,.zip,.rar,.pdf,image/*">
+          <button type="button" id="pick-file-btn" class="file-picker-btn">Vybrat soubor</button>
           <p id="file-names" aria-live="polite"></p>
-          <p class="form-hint">STL, STEP, 3MF, PDF, obrázky, ZIP… — <strong>všechny vybrané soubory dohromady max. 10 MB</strong> (limit služby pro odeslání e-mailem).</p>
+          <p class="form-hint">STL, STEP, 3MF, PDF, obrázky, ZIP… — <strong>1 soubor max. 10 MB</strong>. Pro více souborů použijte odkaz na Drive/Dropbox níže.</p>
         </div>
         <div class="fg">
           <label for="pf-odkazy">Odkaz na Drive / cloud (volitelné)</label>
@@ -783,6 +783,7 @@ async function handleForm(e){
       }
     }
     const fd=new FormData(form);
+    if(pril&&pril.files&&pril.files[0]) fd.set('attachment',pril.files[0]);
     const emailField=form.querySelector('#pf-email');
     if(emailField&&emailField.value)fd.set('_replyto',emailField.value.trim());
     const telField=form.querySelector('#pf-tel');
@@ -814,7 +815,9 @@ async function handleForm(e){
     btn.disabled=false
   }
 }
-document.getElementById('prilohy')?.addEventListener('change',function(){const el=document.getElementById('file-names');if(!el)return;if(!this.files.length){el.textContent='';return}const cleanName=n=>(n||'').normalize('NFC').replace(/\uFFFD/g,'').replace(/[\p{Cc}\p{Cf}\p{Cs}\p{Co}\p{Cn}]/gu,'');const names=Array.from(this.files).map(f=>cleanName(f.name)).join(' · ');let b=0;for(const f of this.files)b+=f.size;const mb=(b/1048576).toFixed(2);el.textContent=names+(b?` — celkem ${mb} MB`:'')});
+const fileInput=document.getElementById('prilohy');
+document.getElementById('pick-file-btn')?.addEventListener('click',()=>fileInput?.click());
+fileInput?.addEventListener('change',function(){const el=document.getElementById('file-names');if(!el)return;if(!this.files.length){el.textContent='';return}const cleanName=n=>(n||'').normalize('NFC').replace(/\uFFFD/g,'').replace(/[\p{Cc}\p{Cf}\p{Cs}\p{Co}\p{Cn}]/gu,'').replace(/[^\p{L}\p{N}\p{M}\p{Zs}._\-()[\]]/gu,'').trim();const names=Array.from(this.files).map(f=>cleanName(f.name)).join(' · ');let b=0;for(const f of this.files)b+=f.size;const mb=(b/1048576).toFixed(2);el.textContent=names+(b?` — celkem ${mb} MB`:'')});
 document.querySelectorAll('a[href^="tel:"],a[href*="wa.me/"]').forEach(a=>a.addEventListener('click',()=>{
   if(typeof gtag!=='function') return;
   const href=a.getAttribute('href')||'';
