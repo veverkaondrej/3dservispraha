@@ -1,0 +1,31 @@
+:root{
+  --bg:#07090d; --surface:#0c0f14; --card:#10151c;
+  --border:#1c2530; --border2:#243040;
+  --orange:#ff5216; --orange2:#ff7a42;
+  --text:#dde4ed; --muted:#5a6e82; --muted2:#3d5060;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,82,22,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,82,22,.025) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;z-index:0}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:62px;background:rgba(7,9,13,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Rajdhani',sans-serif;font-size:1.55rem;font-weight:700;letter-spacing:2px;color:var(--text);display:flex;align-items:center;gap:6px;text-decoration:none}
+.logo-3d{color:var(--orange)}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0}
+.nav-back{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--orange2);text-decoration:none;letter-spacing:.08em;text-transform:uppercase}
+.nav-back:hover{color:var(--orange)}
+main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:5.5rem 5vw 4rem}
+.legal-eyebrow{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--orange2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.75rem}
+h1{font-family:'Rajdhani',sans-serif;font-size:2rem;font-weight:700;letter-spacing:.02em;line-height:1.2;margin-bottom:1.25rem}
+.legal-updated{font-size:.8rem;color:var(--muted2);margin-bottom:2rem}
+.legal h2{font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:#f3f7ff;margin:2rem 0 .65rem;letter-spacing:.02em}
+.legal p,.legal li{color:var(--muted);margin-bottom:.85rem}
+.legal ul{margin:.5rem 0 1rem 1.1rem}
+.legal li{margin-bottom:.4rem}
+.legal strong{color:var(--text);font-weight:600}
+.legal a{color:var(--orange2);text-decoration:none}
+.legal a:hover{text-decoration:underline}
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:2rem 5vw;margin-top:3rem}
+.f-inner{max-width:720px;margin:0 auto;font-size:.74rem;color:var(--muted2)}
+.f-inner a{color:var(--orange2);text-decoration:none}
+.f-inner a:hover{text-decoration:underline}
