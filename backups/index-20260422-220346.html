@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D tisk Praha | Zakázkový 3D tisk a servis Bambu Lab & Prusa</title>
+<meta name="description" content="3D tisk Praha na zakázku, expresní výroba dílů a servis 3D tiskáren Bambu Lab a Prusa. Mobilní servis po Praze a okolí. Opravy, modelování i poptávky na jednom místě.">
+<meta name="keywords" content="3D tisk Praha, zakázkový 3D tisk, servis Bambu Lab, servis Prusa, oprava 3D tiskárny, 3D modelování">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0;1" rel="stylesheet">
+<style>
+:root{
+  --bg:#07090d; --surface:#0c0f14; --card:#10151c; --card2:#141b24;
+  --border:#1c2530; --border2:#243040;
+  --orange:#ff5216; --orange2:#ff7a42; --orange-dim:rgba(255,82,22,.11);
+  --cyan:#00cfee; --cyan-dim:rgba(0,207,238,.08);
+  --text:#dde4ed; --muted:#5a6e82; --muted2:#3d5060;
+  --green:#22c97a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden}
+
+/* grid bg */
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,82,22,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,82,22,.025) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;z-index:0}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:62px;background:rgba(7,9,13,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Rajdhani',sans-serif;font-size:1.55rem;font-weight:700;letter-spacing:2px;color:var(--text);display:flex;align-items:center;gap:6px;text-decoration:none}
+.logo-3d{color:var(--orange)}
+.logo-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);animation:blink 1.6s infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.8rem;letter-spacing:.07em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--orange)!important;color:#fff!important;padding:.4rem 1.15rem;border-radius:3px;font-weight:600!important}
+.nav-cta:hover{background:var(--orange2)!important}
+@media(max-width:780px){.nav-links{display:none}}
+
+/* SHARED */
+section{position:relative;z-index:1;padding:100px 5vw}
+.eyebrow{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--orange);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+.eyebrow::before{content:'//';color:var(--muted2)}
+h2{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4.8vw,3.4rem);font-weight:700;line-height:1.05;letter-spacing:-.01em;margin-bottom:1rem}
+.sub{font-size:.97rem;color:var(--muted);max-width:540px;margin-bottom:3.5rem;line-height:1.75}
+.sub-strong{color:#f3f7ff;font-weight:700}
+.btn-p{display:inline-block;background:var(--orange);color:#fff;padding:.85rem 2rem;border:none;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 0 28px rgba(255,82,22,.32)}
+.btn-p:hover{background:var(--orange2);transform:translateY(-2px);box-shadow:0 0 44px rgba(255,82,22,.48)}
+.btn-g{display:inline-block;background:transparent;color:var(--text);padding:.85rem 2rem;border:1px solid var(--border2);cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;border-radius:3px;transition:border-color .2s,color .2s}
+.btn-g:hover{border-color:var(--orange);color:var(--orange)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO */
+#hero{min-height:100vh;padding:90px 5vw 80px;display:grid;grid-template-columns:1fr 420px;gap:3rem;align-items:center;overflow:hidden}
+@media(max-width:920px){#hero{grid-template-columns:1fr}}
+.hero-glow{position:absolute;right:-100px;top:50px;width:650px;height:650px;background:radial-gradient(ellipse,rgba(255,82,22,.14) 0%,transparent 68%);border-radius:50%;pointer-events:none;animation:breathe 7s ease-in-out infinite}
+.hero-glow2{position:absolute;left:20%;bottom:-60px;width:500px;height:500px;background:radial-gradient(ellipse,rgba(0,207,238,.07) 0%,transparent 68%);border-radius:50%;pointer-events:none;animation:breathe 9s ease-in-out 2s infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.hero-tag{display:inline-flex;align-items:center;gap:.55rem;font-family:'Space Mono',monospace;font-size:.7rem;color:var(--orange);letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(255,82,22,.3);padding:.32rem .9rem;border-radius:2px;margin-bottom:1.8rem;animation:fadeUp .6s ease both}
+.hero-tag::before{content:'';width:6px;height:6px;background:var(--orange);border-radius:50%;animation:blink 1.4s infinite}
+h1{font-family:'Rajdhani',sans-serif;font-size:clamp(3rem,7vw,5.6rem);font-weight:700;line-height:.98;letter-spacing:-.01em;margin-bottom:1.5rem;animation:fadeUp .6s .1s ease both}
+h1 .acc{color:var(--orange)}
+h1 .accg{color:var(--green)}
+h1 .acc2{color:var(--cyan)}
+.hero-lead{font-size:1.05rem;color:var(--muted);max-width:490px;margin-bottom:2.2rem;line-height:1.75;animation:fadeUp .6s .2s ease both}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
+.hero-stats{display:flex;gap:3rem;flex-wrap:wrap;margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid var(--border);animation:fadeUp .6s .42s ease both}
+.stat-n{font-family:'Rajdhani',sans-serif;font-size:2.3rem;font-weight:700;color:var(--orange);line-height:1}
+.stat-l{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;margin-top:.18rem}
+.hero-logistics{margin-top:1.9rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem;max-width:1120px;animation:fadeUp .6s .5s ease both}
+.hero-branch{border:1px solid rgba(255,255,255,.28);border-radius:6px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(7,9,13,.68));padding:1rem 1.05rem .85rem}
+.hero-branch-label{font-family:'Space Mono',monospace;font-size:.64rem;color:#f3f7ff;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem}
+.hero-branch-note{font-size:.75rem;color:var(--muted);margin-top:.25rem}
+.hero-branch .hero-branch-note{color:#f3f7ff}
+.hero-map{border:1px solid var(--border2);border-radius:6px;background:linear-gradient(180deg,rgba(34,201,122,.06),rgba(7,9,13,.65));padding:1rem 1.05rem .85rem}
+.hero-map-label{font-family:'Space Mono',monospace;font-size:.64rem;color:var(--green);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem}
+.hero-map-note{font-size:.75rem;color:var(--muted);margin-top:.25rem}
+.hero-map .hero-map-note{color:#f3f7ff}
+.hero-ship{border:1px solid rgba(255,82,22,.35);border-radius:6px;background:linear-gradient(180deg,rgba(255,82,22,.08),rgba(7,9,13,.65));padding:1rem 1.05rem .85rem}
+.hero-ship-label{font-family:'Space Mono',monospace;font-size:.64rem;color:var(--orange2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem}
+.hero-ship-note{font-size:.75rem;color:var(--muted);margin-top:.25rem}
+.hero-ship .hero-ship-note{color:#f3f7ff}
+.hero-ship-note strong{font-weight:700}
+@media(max-width:780px){.hero-logistics{grid-template-columns:1fr}}
+.hero-vis{display:flex;align-items:center;justify-content:center}
+@media(max-width:920px){.hero-vis{display:none}}
+
+/* BRAND BAR */
+.brand-bar{position:relative;z-index:1;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.3rem 0;overflow:hidden}
+.brand-scroll{display:flex;gap:3rem;align-items:center;animation:scrollx 24s linear infinite;white-space:nowrap}
+@keyframes scrollx{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.brand-item{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted2);flex-shrink:0;transition:color .2s}
+.brand-sep{color:var(--border);flex-shrink:0}
+.brand-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;text-align:center;margin-bottom:.9rem}
+.brand-with-text{display:inline-flex;align-items:center;gap:.45rem;flex-shrink:0}
+.brand-logo{height:20px;width:auto;opacity:.9;filter:grayscale(100%) brightness(1.5);transition:opacity .2s,filter .2s,transform .2s;flex-shrink:0}
+.brand-logo:hover{opacity:1;filter:none;transform:translateY(-1px)}
+
+/* GALLERY */
+#galerie{background:var(--bg)}
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+@media(max-width:680px){.gal-grid{grid-template-columns:1fr}}
+.gitem{background:var(--card);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem;transition:background .2s}
+.gitem:hover{background:var(--card2)}
+.gitem.wide{grid-column:span 2}
+@media(max-width:680px){.gitem.wide{grid-column:span 1}}
+.gvis{width:100%;min-height:160px;display:flex;align-items:center;justify-content:center;flex:1}
+.gvis svg.gpic{
+  width:100%;
+  height:185px;
+  display:block;
+  border-radius:6px;
+  border:1px solid var(--border2);
+  background:linear-gradient(165deg,#0e141c 0%,#080b10 100%);
+}
+.glabel{font-family:'Space Mono',monospace;font-size:.64rem;color:var(--orange);letter-spacing:.14em;text-transform:uppercase}
+.gtitle{font-family:'Rajdhani',sans-serif;font-size:1.1rem;font-weight:700;letter-spacing:.02em}
+.gdesc{font-size:.82rem;color:var(--muted);line-height:1.55}
+
+/* TEAM */
+#tym{background:var(--bg)}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin-top:3rem}
+.tcard{background:var(--card);padding:2.5rem 2rem;transition:background .2s;position:relative;overflow:hidden}
+.tcard:hover{background:var(--card2)}
+.tcard.star{background:linear-gradient(160deg,var(--card2),#12181f)}
+.tcard.star::after{content:'HLAVNÍ TVÁŘ';position:absolute;top:1.2rem;right:-2.5rem;background:var(--orange);color:#fff;font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.1em;padding:.28rem 3rem;transform:rotate(35deg)}
+.tavatar{width:66px;height:66px;border-radius:50%;border:1px solid var(--border2);margin-bottom:1.4rem;background:var(--surface);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.trole{font-family:'Space Mono',monospace;font-size:.63rem;color:var(--orange);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
+.tname{font-family:'Rajdhani',sans-serif;font-size:1.7rem;font-weight:700;letter-spacing:.02em;margin-bottom:.1rem}
+.ttag{font-size:.87rem;color:var(--muted);margin-bottom:1.2rem;font-style:italic}
+.tbio{font-size:.87rem;color:var(--muted);line-height:1.72}
+.tbadge{display:inline-flex;align-items:center;gap:.35rem;font-family:'Space Mono',monospace;font-size:.65rem;background:var(--orange-dim);color:var(--orange);border:1px solid rgba(255,82,22,.2);padding:.22rem .7rem;border-radius:2px;margin-top:1rem;letter-spacing:.06em}
+
+/* SERVICES / GRID */
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden}
+.scard{background:var(--card);padding:2.5rem 2rem;transition:background .2s}
+.scard:hover{background:var(--card2)}
+.scard:hover .s-icon-wrap{border-color:var(--orange);box-shadow:0 0 18px rgba(255,82,22,.22)}
+.s-icon-wrap{width:46px;height:46px;background:var(--orange-dim);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;margin-bottom:1.3rem;transition:border-color .2s,box-shadow .2s}
+.st{font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;letter-spacing:.02em;margin-bottom:.5rem}
+.sd{font-size:.87rem;color:var(--muted);line-height:1.65}
+.sl{list-style:none;margin-top:1.1rem;display:flex;flex-direction:column;gap:.35rem}
+.sl li{font-size:.8rem;color:var(--muted);padding-left:1rem;position:relative}
+.sl li::before{content:'›';position:absolute;left:0;color:var(--orange)}
+#opravy .sl li{color:var(--text)}
+#opravy{background:var(--surface)}
+#opravy .svc-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+#opravy .scard{display:flex;flex-direction:column;gap:.65rem}
+#opravy .s-icon-wrap{
+  width:100%;
+  height:168px;
+  margin-bottom:.55rem;
+  border-radius:8px;
+  overflow:hidden;
+  background:#0b1118;
+  border:1px solid var(--border2);
+  padding:0;
+}
+#opravy .s-icon-wrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+@media(max-width:980px){
+  #opravy .svc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:640px){
+  #opravy .svc-grid{grid-template-columns:1fr}
+}
+
+/* PROCESS */
+#postup{background:var(--bg)}
+.psteps{border:1px solid var(--border);border-radius:6px;overflow:hidden;max-width:700px}
+.pstep{display:grid;grid-template-columns:58px 1fr;gap:1.4rem;align-items:flex-start;padding:1.8rem 2rem;border-bottom:1px solid var(--border);background:var(--card);transition:background .2s}
+.pstep:last-child{border-bottom:none}
+.pstep:hover{background:var(--card2)}
+.psn{font-family:'Space Mono',monospace;font-size:1.9rem;font-weight:700;color:var(--border2);line-height:1;transition:color .2s}
+.pstep:hover .psn{color:var(--orange)}
+.pst{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:.02em;margin-bottom:.28rem}
+.psd{font-size:.86rem;color:var(--muted);line-height:1.62}
+
+/* PRICING */
+#cenik{background:var(--surface)}
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:1.5rem}
+.prcard{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:2.2rem 2rem;position:relative;transition:transform .25s,box-shadow .25s,border-color .25s;overflow:hidden}
+.prcard:hover{transform:translateY(-3px);box-shadow:0 18px 44px rgba(0,0,0,.4)}
+.prcard.feat{border-color:var(--orange);background:linear-gradient(150deg,#12181f,#0c0f14)}
+.pr-badge{position:absolute;top:1.1rem;right:-2.5rem;background:var(--orange);color:#fff;font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.1em;padding:.28rem 3rem;transform:rotate(35deg)}
+.pr-name{font-family:'Space Mono',monospace;font-size:.78rem;color:#f3f7ff;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;font-weight:700}
+.pr-val{font-family:'Rajdhani',sans-serif;font-size:2.6rem;font-weight:700;line-height:1;margin-bottom:.25rem}
+.pr-val sup{font-size:1rem;vertical-align:top;margin-top:.38rem;color:var(--orange)}
+.pr-val sub{font-size:.9rem;color:var(--muted);font-weight:400}
+.pr-note{font-size:.76rem;color:var(--muted);margin-bottom:1.4rem}
+.pr-div{border:none;border-top:1px solid var(--border);margin:1.3rem 0}
+.pr-feats{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.8rem}
+.pr-feats li{font-size:.84rem;color:var(--muted);display:flex;align-items:flex-start;gap:.5rem}
+.pr-feats li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;font-size:.78rem;margin-top:.05rem}
+.pr-feats li.no{opacity:.38}
+.pr-feats li.no::before{content:'✗';color:var(--muted)}
+
+/* TESTIMONIALS */
+#reference{background:var(--bg)}
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(278px,1fr));gap:1.5rem}
+.tecard{background:var(--card);border:1px solid var(--border);border-radius:5px;padding:2rem;transition:border-color .2s,box-shadow .2s}
+.tecard:hover{border-color:rgba(255,82,22,.4);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.teimg{width:100%;height:140px;object-fit:cover;border-radius:6px;border:1px solid var(--border2);margin-bottom:1rem;display:block}
+.stars{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--orange);letter-spacing:.12em;line-height:1;margin-bottom:.85rem}
+.tetext{font-size:.89rem;color:var(--muted);font-style:italic;line-height:1.7;margin-bottom:1.4rem}
+.teauth{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.02em}
+.terole{font-size:.76rem;color:var(--muted)}
+
+/* CONTACT */
+#kontakt{background:var(--surface);border-top:1px solid var(--border)}
+.ct-wrap{display:grid;grid-template-columns:1fr 1fr;gap:6rem;max-width:1050px}
+@media(max-width:750px){.ct-wrap{grid-template-columns:1fr;gap:3rem}}
+.ct-items{display:flex;flex-direction:column;gap:1.4rem;margin-top:.5rem}
+.ct-group{display:flex;flex-direction:column;gap:.75rem;margin-bottom:.25rem}
+.ct-group-role{font-size:.8rem;color:var(--muted);line-height:1.5;margin-bottom:.15rem}
+.ci{display:flex;gap:1rem;align-items:flex-start}
+.ci-icon{width:40px;height:40px;flex-shrink:0;background:var(--orange-dim);border:1px solid rgba(255,82,22,.22);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--orange2);font-variation-settings:'FILL' 1,'wght' 500,'GRAD' 0,'opsz' 24}
+.ci-icon .material-symbols-outlined{font-size:20px;line-height:1}
+.ci-l{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-bottom:.12rem}
+.ci-v{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:600}
+.ci-v a{color:inherit;text-decoration:none}
+.ci-v a:hover{color:var(--orange2)}
+.ct-map{margin-top:1.75rem;width:100%;max-width:440px}
+.ct-map-frame-wrap{position:relative;border-radius:6px;overflow:hidden;border:1px solid var(--border2);background:var(--card);aspect-ratio:16/9;max-height:220px;box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.ct-map-frame{position:absolute;inset:0;width:100%;height:100%;border:0}
+.ct-map-link{display:inline-flex;align-items:center;gap:.4rem;font-family:'Rajdhani',sans-serif;font-size:.82rem;font-weight:700;letter-spacing:.04em;color:var(--orange2);text-decoration:none;margin-top:.6rem}
+.ct-map-link:hover{color:var(--orange)}
+label{font-family:'Space Mono',monospace;font-size:.63rem;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;display:block;margin-bottom:.38rem}
+input:not([type=file]),textarea,select{width:100%;background:var(--card);border:1px solid var(--border2);border-radius:4px;padding:.75rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s}
+input::placeholder,textarea::placeholder{color:var(--muted2)}
+input:not([type=file]):focus,textarea:focus,select:focus{border-color:var(--orange)}
+input[type=file]{width:100%;padding:.35rem 0;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.85rem;color:var(--muted)}
+input[type=file]::file-selector-button{font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-right:1rem;padding:.55rem 1rem;border:1px solid var(--border2);border-radius:4px;background:var(--card);color:var(--text);cursor:pointer;transition:border-color .2s,background .2s}
+input[type=file]::file-selector-button:hover{border-color:var(--orange)}
+.form-hint{font-size:.72rem;color:var(--muted2);margin-top:.35rem;line-height:1.45}
+.form-hint a:hover{text-decoration:underline}
+#file-names{font-size:.75rem;color:var(--muted);margin-top:.4rem;word-break:break-word}
+textarea{min-height:100px;resize:vertical}
+select option{background:var(--card);color:var(--text)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+.fg{margin-bottom:.9rem}
+.form-btn{width:100%;background:var(--orange);color:#fff;border:none;cursor:pointer;padding:.9rem;font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:3px;transition:background .2s,box-shadow .2s;box-shadow:0 0 24px rgba(255,82,22,.28);margin-top:.3rem}
+.form-btn:hover{background:var(--orange2);box-shadow:0 0 40px rgba(255,82,22,.46)}
+#form-ok{display:none;color:var(--green);font-size:.85rem;text-align:center;margin-top:.7rem;font-family:'Space Mono',monospace}
+
+/* FOOTER */
+footer{position:relative;z-index:1;background:var(--bg);border-top:1px solid var(--border);padding:2.5rem 5vw}
+.f-inner{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:1.35rem;align-items:flex-start}
+.flogo{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:2px;color:var(--text)}
+.f-company{font-size:.78rem;color:var(--muted);line-height:1.65}
+.f-company-label{font-family:'Space Mono',monospace;font-size:.62rem;color:var(--muted2);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.35rem}
+.f-legal{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem 1.2rem;font-size:.72rem;color:var(--muted2)}
+.f-legal a{color:inherit;text-decoration:none}
+.f-legal a:hover{color:var(--orange2)}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#"><div class="logo-dot"></div><span class="logo-3d">3D</span>Servis</a>
+  <ul class="nav-links">
+    <li><a href="#cenik">Ceník</a></li>
+    <li><a href="#galerie">3D tisk</a></li>
+    <li><a href="#opravy">Servis</a></li>
+    <li><a href="#reference">Reference</a></li>
+    <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div>
+    <div class="hero-tag">MOBILNÍ SERVIS PRAHA A OKOLÍ | PRAHA-HLOUBĚTÍN | SERVIS PŘEPRAVNÍ SLUŽBOU</div>
+    <h1>3D tisk Praha.<br>Servis <span class="accg">Bambu Lab</span> a <span class="acc">Prusa</span> bez čekání.<br>Přijedeme i za vámi.</h1>
+    <p class="hero-lead">Jsme <span class="sub-strong">tříčlenný tým lidí z praxe</span>, kteří 3D tiskem žijou. <span class="sub-strong">Zakázkový 3D tisk v Praze</span>, servis 3D tiskáren i návrh dílů pod jednou střechou. <span class="sub-strong">Mobilní servis po Praze a okolí řešíme každý den.</span> <span class="sub-strong">Kvalitně, rychle a za férovou cenu.</span></p>
+    <div class="hero-btns">
+      <a href="#kontakt" class="btn-g">Zadat poptávku</a>
+      <a href="tel:+420000000000" class="btn-p">☎ +420 000 000 000</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-n" data-target="200">0+</div><div class="stat-l">Opravených tiskáren</div></div>
+      <div><div class="stat-n" data-target="1">0h</div><div class="stat-l">První odezva</div></div>
+      <div><div class="stat-n" data-target="8">0</div><div class="stat-l">let v oboru</div></div>
+      <div><div class="stat-n" data-target="5000">0+</div><div class="stat-l">hodin tisku</div></div>
+      <div><div class="stat-n" data-target="100">0%</div><div class="stat-l">kvalita a férová cena</div></div>
+    </div>
+    <div class="hero-logistics">
+      <div class="hero-branch">
+        <div class="hero-branch-label">// POBOČKA</div>
+        <div class="hero-branch-note"><strong>Praha 9 · Hloubětín</strong> — osobní předání i vyzvednutí zakázek.</div>
+      </div>
+      <div class="hero-map">
+        <div class="hero-map-label">// PRAHA A OKOLÍ</div>
+        <div class="hero-map-note"><strong>Mobilní servis:</strong> Praha a středočeský kraj</div>
+      </div>
+      <div class="hero-ship">
+        <div class="hero-ship-label">// Přeprava tiskárny</div>
+        <div class="hero-ship-note"><strong>Přepravní službou</strong> — domluvíme vyzvednutí i zpětné doručení.</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-vis">
+    <svg width="400" height="420" viewBox="0 0 400 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="55" y="45" width="290" height="330" rx="15" fill="#0c0f14" stroke="#1c2530" stroke-width="1.5"/>
+      <rect x="55" y="45" width="290" height="56" rx="15" fill="#10151c" stroke="#1c2530" stroke-width="1.5"/>
+      <!-- screen -->
+      <rect x="70" y="56" width="76" height="34" rx="4" fill="#07090d"/>
+      <rect x="72" y="58" width="72" height="30" rx="3" fill="#060c14"/>
+      <text x="108" y="77" font-family="'Space Mono',monospace" font-size="9" fill="#ff5216" text-anchor="middle">PRINT 87%</text>
+      <!-- AMS top -->
+      <rect x="180" y="51" width="150" height="40" rx="7" fill="#10151c" stroke="#1c2530" stroke-width="1.5"/>
+      <rect x="187" y="57" width="24" height="24" rx="3" fill="#ff5216" opacity=".85"/>
+      <rect x="216" y="57" width="24" height="24" rx="3" fill="#1a5fa8" opacity=".85"/>
+      <rect x="245" y="57" width="24" height="24" rx="3" fill="#2d7a4f" opacity=".85"/>
+      <rect x="274" y="57" width="24" height="24" rx="3" fill="#c8a020" opacity=".85"/>
+      <rect x="303" y="57" width="18" height="24" rx="3" fill="#1c2530"/>
+      <text x="255" y="48" font-family="'Space Mono',monospace" font-size="7.5" fill="#3d5060" text-anchor="middle">AMS · 5 BAREV</text>
+      <!-- chamber -->
+      <rect x="70" y="108" width="260" height="242" rx="5" fill="#060810" stroke="#1c2530" stroke-width="1.5"/>
+      <!-- rails -->
+      <rect x="80" y="116" width="10" height="226" rx="4" fill="#10151c"/>
+      <rect x="310" y="116" width="10" height="226" rx="4" fill="#10151c"/>
+      <rect x="80" y="116" width="240" height="10" rx="4" fill="#10151c"/>
+      <!-- carriage -->
+      <rect x="150" y="164" width="100" height="28" rx="4" fill="#10151c" stroke="#1c2530" stroke-width="1.5"/>
+      <rect x="158" y="172" width="84" height="12" rx="3" fill="#1c2530"/>
+      <!-- nozzle -->
+      <path d="M195 192 L200 210 L205 192" fill="#ff5216" opacity=".8"/>
+      <!-- filament path -->
+      <path d="M207 60 Q210 120 200 164" stroke="#ff5216" stroke-width="1.8" stroke-dasharray="5,4" fill="none" opacity=".4"/>
+      <!-- bed -->
+      <rect x="82" y="304" width="236" height="12" rx="4" fill="#10151c" stroke="#1c2530" stroke-width="1"/>
+      <!-- 5-color object -->
+      <rect x="130" y="250" width="140" height="54" rx="3" fill="transparent" stroke="#1c2530" stroke-width="1"/>
+      <rect x="130" y="250" width="140" height="11" rx="2" fill="#ff5216" opacity=".55"/>
+      <rect x="130" y="261" width="140" height="11" fill="#1a5fa8" opacity=".55"/>
+      <rect x="130" y="272" width="140" height="11" fill="#2d7a4f" opacity=".55"/>
+      <rect x="130" y="283" width="140" height="11" fill="#c8a020" opacity=".55"/>
+      <rect x="130" y="294" width="140" height="10" rx="0" fill="rgba(255,255,255,.12)"/>
+      <!-- LED bar -->
+      <rect x="80" y="114" width="240" height="3" rx="1.5" fill="#c8a020" opacity=".45"/>
+      <!-- camera -->
+      <circle cx="300" cy="122" r="7" fill="#07090d" stroke="#1c2530" stroke-width="1.5"/>
+      <circle cx="300" cy="122" r="3" fill="#00cfee" opacity=".6"/>
+      <!-- service badge -->
+      <rect x="240" y="132" width="78" height="24" rx="4" fill="rgba(255,82,22,.1)" stroke="rgba(255,82,22,.42)" stroke-width="1.2"/>
+      <circle cx="253" cy="144" r="5.5" fill="none" stroke="#ff7a42" stroke-width="1.5"/>
+      <path d="M257 140 L264 133" stroke="#ff7a42" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="265.5" cy="131.5" r="1.8" fill="#ff7a42"/>
+      <text x="280" y="147" font-family="'Space Mono',monospace" font-size="7.2" fill="#ff7a42" letter-spacing=".08em">SERVIS</text>
+      <!-- dim annotations -->
+      <line x1="22" y1="108" x2="22" y2="350" stroke="#1c2530" stroke-width="1"/>
+      <line x1="17" y1="108" x2="27" y2="108" stroke="#1c2530" stroke-width="1"/>
+      <line x1="17" y1="350" x2="27" y2="350" stroke="#1c2530" stroke-width="1"/>
+      <text x="13" y="235" font-family="'Space Mono',monospace" font-size="8" fill="#3d5060" text-anchor="middle" transform="rotate(-90,13,235)">360 mm</text>
+      <line x1="70" y1="388" x2="330" y2="388" stroke="#1c2530" stroke-width="1"/>
+      <line x1="70" y1="383" x2="70" y2="393" stroke="#1c2530" stroke-width="1"/>
+      <line x1="330" y1="383" x2="330" y2="393" stroke="#1c2530" stroke-width="1"/>
+      <text x="200" y="404" font-family="'Space Mono',monospace" font-size="8" fill="#3d5060" text-anchor="middle">360 mm</text>
+    </svg>
+  </div>
+</section>
+
+<!-- BRAND BAR -->
+<div class="brand-bar">
+  <div class="brand-label">SERVISUJEME všechny běžné značky</div>
+  <div style="overflow:hidden">
+    <div class="brand-scroll">
+      <span class="brand-with-text"><img class="brand-logo" src="assets/logos/prusa.ico" alt="Prusa"><span class="brand-item">Prusa</span></span><span class="brand-sep">·</span>
+      <span class="brand-with-text"><img class="brand-logo" src="assets/logos/bambulab.ico" alt="Bambu Lab"><span class="brand-item">Bambu Lab</span></span><span class="brand-sep">·</span>
+      <span class="brand-with-text"><img class="brand-logo" src="assets/logos/creality.ico" alt="Creality"><span class="brand-item">Creality</span></span><span class="brand-sep">·</span>
+      <span class="brand-with-text"><img class="brand-logo" src="assets/logos/prusa.ico" alt="Prusa"><span class="brand-item">Prusa</span></span><span class="brand-sep">·</span>
+      <span class="brand-with-text"><img class="brand-logo" src="assets/logos/bambulab.ico" alt="Bambu Lab"><span class="brand-item">Bambu Lab</span></span><span class="brand-sep">·</span>
+      <span class="brand-with-text"><img class="brand-logo" src="assets/logos/creality.ico" alt="Creality"><span class="brand-item">Creality</span></span><span class="brand-sep">·</span>
+      <span class="brand-with-text"><img class="brand-logo" src="assets/logos/prusa.ico" alt="Prusa"><span class="brand-item">Prusa</span></span><span class="brand-sep">·</span>
+      <span class="brand-with-text"><img class="brand-logo" src="assets/logos/bambulab.ico" alt="Bambu Lab"><span class="brand-item">Bambu Lab</span></span><span class="brand-sep">·</span>
+      <span class="brand-with-text"><img class="brand-logo" src="assets/logos/creality.ico" alt="Creality"><span class="brand-item">Creality</span></span><span class="brand-sep">·</span>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section id="cenik">
+  <div class="reveal">
+    <div class="eyebrow">Ceník</div>
+    <h2>Férové ceny.<br>Bez překvapení.</h2>
+    <p class="sub">Pro jednotlivce, firmy i opraváře, kteří potřebují spolehlivého partnera. Finální cenu vždy schvalujete předem.</p>
+  </div>
+  <div class="price-grid">
+    <div class="prcard reveal"><div class="pr-name">Diagnostika</div><div class="pr-val"><sup>od</sup>0 Kč</div><div class="pr-note">Zdarma při provedení opravy · jinak 300 Kč</div><hr class="pr-div"><ul class="pr-feats"><li>Vizuální & elektronická kontrola</li><li>Testovací tisk</li><li>Identifikace závady</li><li>Cenová kalkulace</li><li class="no">Oprava v ceně</li></ul><a href="#kontakt" class="btn-g" style="display:block;text-align:center;padding:.75rem">Objednat</a></div>
+    <div class="prcard feat reveal d1"><div class="pr-name">Servis tiskárny</div><div class="pr-val"><sup>od</sup>500 Kč<sub>/zákrok</sub></div><div class="pr-note">Díly účtujeme zvlášť v reálné ceně</div><hr class="pr-div"><ul class="pr-feats"><li>Oprava na pobočce nebo u vás</li><li>Oprava dle diagnózy</li><li>Kalibrace & testovací tisk</li><li>Originální nebo OEM díly</li><li>Expres oprava do 48 h</li></ul><a href="#kontakt" class="btn-p" style="display:block;text-align:center;padding:.75rem">Zadat opravu</a></div>
+    <div class="prcard reveal d2"><div class="pr-name">3D tisk na zakázku</div><div class="pr-val"><sup>od</sup>150 Kč<sub>/kus</sub></div><div class="pr-note">Cena dle velikosti a náročnosti modelu</div><hr class="pr-div"><ul class="pr-feats"><li>Nejmodernější stroje</li><li>Profesionální práce</li><li>Výběr materiálu & barvy</li><li>Až 5 barev v jednom tisku</li><li>Dodání od 24 hodin</li><li>Doručení po celé ČR</li></ul><a href="#kontakt" class="btn-g" style="display:block;text-align:center;padding:.75rem">Zadat tisk</a></div>
+    <div class="prcard reveal d3"><div class="pr-name">3D modelování</div><div class="pr-val"><sup>od</sup>800 Kč<sub>/hod</sub></div><div class="pr-note">Odhad zdarma · fixní cena u jednodušších dílů</div><hr class="pr-div"><ul class="pr-feats"><li>CAD & průmyslový design</li><li>Výstup STL, STEP, OBJ</li><li>Revize v ceně</li><li>Konzultace zdarma</li><li>První tisk v ceně modelu</li></ul><a href="#kontakt" class="btn-g" style="display:block;text-align:center;padding:.75rem">Poptat model</a></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="galerie">
+  <div class="reveal">
+    <div class="eyebrow">3D tisk na zakázku · Praha</div>
+    <h2>Prototypy, díly<br>i sériová výroba.</h2>
+    <p class="sub">Mechanika, držáky, kryty, náhradní díly — FDM až do 360×360×360 mm včetně <span class="sub-strong">vícebarevného</span> tisku (AMS). K tomu SLA pro detaily a SLS/MJF pro funkční díly z prášku.</p>
+  </div>
+  <div class="gal-grid reveal">
+    <!-- wide: technical -->
+    <div class="gitem wide">
+      <div class="gvis">
+        <svg width="100%" height="185" viewBox="0 0 500 185" fill="none">
+          <g transform="translate(72,93)">
+            <circle cx="0" cy="0" r="46" fill="rgba(255,82,22,.06)" stroke="rgba(255,82,22,.42)" stroke-width="1.5"/>
+            <circle cx="0" cy="0" r="22" fill="rgba(255,82,22,.1)" stroke="rgba(255,82,22,.42)" stroke-width="1.5"/>
+            <circle cx="0" cy="0" r="7" fill="rgba(255,82,22,.55)"/>
+            <g stroke="rgba(255,82,22,.55)" stroke-width="3.5" stroke-linecap="round">
+              <line x1="0" y1="-46" x2="0" y2="-58"/><line x1="32.5" y1="-32.5" x2="40.5" y2="-40.5"/>
+              <line x1="46" y1="0" x2="58" y2="0"/><line x1="32.5" y1="32.5" x2="40.5" y2="40.5"/>
+              <line x1="0" y1="46" x2="0" y2="58"/><line x1="-32.5" y1="32.5" x2="-40.5" y2="40.5"/>
+              <line x1="-46" y1="0" x2="-58" y2="0"/><line x1="-32.5" y1="-32.5" x2="-40.5" y2="-40.5"/>
+            </g>
+          </g>
+          <g transform="translate(205,36)">
+            <path d="M0 0 L90 0 L90 114 L68 114 L68 22 L22 22 L22 114 L0 114 Z" fill="rgba(26,95,168,.1)" stroke="rgba(26,95,168,.52)" stroke-width="1.5"/>
+            <circle cx="11" cy="11" r="5.5" fill="none" stroke="rgba(26,95,168,.5)" stroke-width="1.5"/>
+            <circle cx="79" cy="11" r="5.5" fill="none" stroke="rgba(26,95,168,.5)" stroke-width="1.5"/>
+            <circle cx="11" cy="103" r="5.5" fill="none" stroke="rgba(26,95,168,.5)" stroke-width="1.5"/>
+            <circle cx="79" cy="103" r="5.5" fill="none" stroke="rgba(26,95,168,.5)" stroke-width="1.5"/>
+            <line x1="-14" y1="0" x2="-14" y2="114" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+            <line x1="-20" y1="0" x2="-8" y2="0" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+            <line x1="-20" y1="114" x2="-8" y2="114" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+            <text x="-22" y="61" font-family="monospace" font-size="8.5" fill="rgba(255,255,255,.22)" text-anchor="middle" transform="rotate(-90,-22,61)">114 mm</text>
+          </g>
+          <g transform="translate(362,56)">
+            <rect x="0" y="0" width="78" height="72" rx="5" fill="rgba(45,122,79,.09)" stroke="rgba(45,122,79,.48)" stroke-width="1.5"/>
+            <rect x="10" y="10" width="58" height="52" rx="3" fill="rgba(45,122,79,.04)" stroke="rgba(45,122,79,.22)" stroke-width="1"/>
+            <circle cx="24" cy="22" r="5" fill="none" stroke="rgba(45,122,79,.5)" stroke-width="1.5"/>
+            <circle cx="54" cy="22" r="5" fill="none" stroke="rgba(45,122,79,.5)" stroke-width="1.5"/>
+            <circle cx="24" cy="50" r="5" fill="none" stroke="rgba(45,122,79,.5)" stroke-width="1.5"/>
+            <circle cx="54" cy="50" r="5" fill="none" stroke="rgba(45,122,79,.5)" stroke-width="1.5"/>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <div class="glabel">// Technické díly</div>
+        <div class="gtitle">Mechanika, držáky, kryty, náhradní díly</div>
+        <div class="gdesc">Přesné funkční díly pro design, mechaniku i elektroniku.</div>
+      </div>
+    </div>
+
+    <!-- organic -->
+    <div class="gitem">
+      <div class="gvis">
+        <svg width="155" height="155" viewBox="0 0 155 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="77.5" cy="123" rx="34" ry="3.8" fill="rgba(255,82,22,.065)"/>
+          <path d="M62 54 Q77.5 44 93 54 C101 68 105 90 98 108 C93 120 86 127 77.5 130 C69 127 62 120 57 108 C50 90 54 68 62 54 Z" fill="rgba(255,82,22,.1)" stroke="rgba(255,82,22,.45)" stroke-width="1.5" stroke-linejoin="round"/>
+          <ellipse cx="77.5" cy="44" rx="18" ry="5.5" fill="rgba(255,82,22,.09)" stroke="rgba(255,82,22,.42)" stroke-width="1.25"/>
+          <ellipse cx="77.5" cy="45" rx="11" ry="3.5" fill="rgba(7,9,13,.5)" stroke="rgba(255,82,22,.2)" stroke-width="1"/>
+          <path d="M67 66 Q77.5 92 74 116" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="glabel">// Design & organické</div>
+        <div class="gtitle">Produkty, dekorace, figurky</div>
+        <div class="gdesc">Cokoliv potřebujete vytisknout.</div>
+      </div>
+    </div>
+
+    <!-- eurobox -->
+    <div class="gitem">
+      <div class="gvis">
+        <svg width="155" height="155" viewBox="0 0 155 155" fill="none">
+          <rect x="6" y="48" width="143" height="90" rx="4" fill="rgba(255,255,255,.03)" stroke="rgba(255,255,255,.14)" stroke-width="1.5"/>
+          <line x1="6" y1="67" x2="149" y2="67" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <line x1="6" y1="86" x2="149" y2="86" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <line x1="6" y1="105" x2="149" y2="105" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <line x1="34" y1="48" x2="34" y2="138" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <line x1="62" y1="48" x2="62" y2="138" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <line x1="90" y1="48" x2="90" y2="138" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <line x1="118" y1="48" x2="118" y2="138" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+          <circle cx="20" cy="58" r="6" fill="rgba(255,82,22,.45)" stroke="rgba(255,82,22,.8)" stroke-width="1"/>
+          <circle cx="48" cy="58" r="6" fill="rgba(255,82,22,.45)" stroke="rgba(255,82,22,.8)" stroke-width="1"/>
+          <circle cx="76" cy="58" r="6" fill="rgba(255,82,22,.45)" stroke="rgba(255,82,22,.8)" stroke-width="1"/>
+          <circle cx="104" cy="58" r="6" fill="rgba(255,82,22,.45)" stroke="rgba(255,82,22,.8)" stroke-width="1"/>
+          <circle cx="134" cy="58" r="6" fill="rgba(255,82,22,.45)" stroke="rgba(255,82,22,.8)" stroke-width="1"/>
+          <circle cx="20" cy="77" r="6" fill="rgba(26,95,168,.45)" stroke="rgba(26,95,168,.8)" stroke-width="1"/>
+          <circle cx="48" cy="77" r="6" fill="rgba(26,95,168,.45)" stroke="rgba(26,95,168,.8)" stroke-width="1"/>
+          <circle cx="76" cy="77" r="6" fill="rgba(26,95,168,.45)" stroke="rgba(26,95,168,.8)" stroke-width="1"/>
+          <circle cx="104" cy="77" r="6" fill="rgba(26,95,168,.45)" stroke="rgba(26,95,168,.8)" stroke-width="1"/>
+          <circle cx="134" cy="77" r="6" fill="rgba(26,95,168,.45)" stroke="rgba(26,95,168,.8)" stroke-width="1"/>
+          <circle cx="20" cy="96" r="6" fill="rgba(45,122,79,.45)" stroke="rgba(45,122,79,.8)" stroke-width="1"/>
+          <circle cx="48" cy="96" r="6" fill="rgba(45,122,79,.45)" stroke="rgba(45,122,79,.8)" stroke-width="1"/>
+          <circle cx="76" cy="96" r="6" fill="rgba(45,122,79,.45)" stroke="rgba(45,122,79,.8)" stroke-width="1"/>
+          <circle cx="104" cy="96" r="6" fill="rgba(45,122,79,.45)" stroke="rgba(45,122,79,.8)" stroke-width="1"/>
+          <circle cx="134" cy="96" r="6" fill="rgba(45,122,79,.45)" stroke="rgba(45,122,79,.8)" stroke-width="1"/>
+          <circle cx="20" cy="115" r="6" fill="rgba(255,82,22,.45)" stroke="rgba(255,82,22,.8)" stroke-width="1"/>
+          <circle cx="48" cy="115" r="6" fill="rgba(255,82,22,.45)" stroke="rgba(255,82,22,.8)" stroke-width="1"/>
+          <circle cx="76" cy="115" r="6" fill="rgba(26,95,168,.45)" stroke="rgba(26,95,168,.8)" stroke-width="1"/>
+          <rect x="8" y="8" width="139" height="36" rx="3" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+          <text x="77" y="22" font-family="'Rajdhani',sans-serif" font-size="9.5" fill="rgba(255,255,255,.6)" text-anchor="middle" font-weight="700">#2542</text>
+          <text x="77" y="36" font-family="'Space Mono',monospace" font-size="7.5" fill="rgba(255,82,22,.7)" text-anchor="middle">LOT: 250 ks · PETG · #2025-042</text>
+        </svg>
+      </div>
+      <div>
+        <div class="glabel">// Sériová výroba</div>
+        <div class="gtitle">Od 10 KS</div>
+        <div class="gdesc">Každá série perfektně optimalizovaná, zabalena, připravena k expedici.</div>
+      </div>
+    </div>
+
+    <!-- multicolor -->
+    <div class="gitem">
+      <div class="gvis">
+        <svg width="155" height="155" viewBox="0 0 155 155" fill="none">
+          <g transform="translate(16,7)">
+            <circle cx="0" cy="7" r="7" fill="#ff5216" opacity=".88"/>
+            <circle cx="30" cy="7" r="7" fill="#1a5fa8" opacity=".88"/>
+            <circle cx="60" cy="7" r="7" fill="#2d7a4f" opacity=".88"/>
+            <circle cx="90" cy="7" r="7" fill="#c8a020" opacity=".88"/>
+            <circle cx="120" cy="7" r="7" fill="rgba(255,255,255,.4)"/>
+          </g>
+          <rect x="25" y="30" width="105" height="13" rx="2" fill="rgba(255,255,255,.35)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+          <rect x="25" y="43" width="105" height="13" fill="#c8a020" opacity=".55"/>
+          <rect x="25" y="56" width="105" height="13" fill="#2d7a4f" opacity=".55"/>
+          <rect x="25" y="69" width="105" height="13" fill="#1a5fa8" opacity=".55"/>
+          <rect x="25" y="82" width="105" height="13" fill="#ff5216" opacity=".55"/>
+          <rect x="25" y="95" width="105" height="11" rx="2" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.1)" stroke-width="1"/>
+          <line x1="25" y1="43" x2="130" y2="43" stroke="rgba(0,0,0,.2)" stroke-width="1"/>
+          <line x1="25" y1="56" x2="130" y2="56" stroke="rgba(0,0,0,.2)" stroke-width="1"/>
+          <line x1="25" y1="69" x2="130" y2="69" stroke="rgba(0,0,0,.2)" stroke-width="1"/>
+          <line x1="25" y1="82" x2="130" y2="82" stroke="rgba(0,0,0,.2)" stroke-width="1"/>
+        </svg>
+      </div>
+      <div>
+        <div class="glabel">// Vícebarevný tisk</div>
+        <div class="gtitle">Až 5 barev v jednom tisku</div>
+        <div class="gdesc">Automatická výměna, žádné přerušování.</div>
+      </div>
+    </div>
+
+    <!-- multimaterial supports -->
+    <div class="gitem">
+      <div class="gvis">
+        <svg width="155" height="155" viewBox="0 0 155 155" fill="none">
+          <rect x="14" y="123" width="127" height="8" rx="3" fill="#1c2530"/>
+          <path d="M43 95 L76 74 L109 95 L76 116 Z" fill="rgba(45,122,79,.3)" stroke="rgba(45,122,79,.9)" stroke-width="1.4"/>
+          <path d="M43 95 L32 114 H120 L109 95" fill="rgba(255,82,22,.12)" stroke="rgba(255,122,66,.9)" stroke-width="1.4"/>
+          <line x1="46" y1="113" x2="52" y2="102" stroke="rgba(255,122,66,.55)" stroke-width="1"/>
+          <line x1="54" y1="114" x2="60" y2="103" stroke="rgba(255,122,66,.55)" stroke-width="1"/>
+          <line x1="62" y1="114" x2="67" y2="104" stroke="rgba(255,122,66,.55)" stroke-width="1"/>
+          <line x1="85" y1="114" x2="90" y2="104" stroke="rgba(255,122,66,.55)" stroke-width="1"/>
+          <line x1="92" y1="114" x2="98" y2="103" stroke="rgba(255,122,66,.55)" stroke-width="1"/>
+          <line x1="100" y1="113" x2="106" y2="102" stroke="rgba(255,122,66,.55)" stroke-width="1"/>
+          <rect x="14" y="20" width="60" height="22" rx="4" fill="rgba(45,122,79,.15)" stroke="rgba(45,122,79,.45)" stroke-width="1"/>
+          <rect x="81" y="20" width="60" height="22" rx="4" fill="rgba(255,82,22,.14)" stroke="rgba(255,122,66,.5)" stroke-width="1"/>
+          <circle cx="26" cy="31" r="5" fill="rgba(45,122,79,.9)"/>
+          <circle cx="93" cy="31" r="5" fill="rgba(255,122,66,.9)"/>
+          <text x="36" y="34" font-family="'Space Mono',monospace" font-size="5.8" fill="rgba(255,255,255,.7)" text-anchor="start">VÝTISK</text>
+          <text x="102" y="34" font-family="'Space Mono',monospace" font-size="5.8" fill="rgba(255,255,255,.7)" text-anchor="start">PODPORY</text>
+        </svg>
+      </div>
+      <div>
+        <div class="glabel">// MULTIMATERIÁLOVÉ PODPORY</div>
+        <div class="gtitle">Jednoduše oddělitelné podpory</div>
+        <div class="gdesc">Moderní technologie, perfektní plocha celého výtisku.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPAIRS -->
+<section id="opravy">
+  <div class="reveal">
+    <div class="eyebrow">Servis Bambu Lab a Prusa</div>
+    <h2>Servis 3D tiskáren<br>v Praze</h2>
+    <p class="sub">Od pravidelné údržby po složité závady elektroniky a AMS. Diagnostika, oprava i finální test na jednom místě.</p>
+  </div>
+  <div class="svc-grid reveal">
+    <div class="scard">
+      <div class="s-icon-wrap"><img src="assets/repairs/udrzba.png" alt="Údržba a profylaxe"></div>
+      <div class="st">Údržba a profylaxe</div>
+      <div class="sd">Doporučujeme pravidelně, ideálně každých několik stovek hodin tisku.</div>
+      <ul class="sl">
+        <li>čištění extruderu a hotendu</li>
+        <li>kontrola a mazání vedení</li>
+        <li>kontrola řemenů a pohybu</li>
+        <li>kalibrace a test senzorů</li>
+        <li>údržba AMS systému</li>
+      </ul>
+    </div>
+    <div class="scard">
+      <div class="s-icon-wrap"><img src="assets/repairs/extruder.png" alt="Extruder a tisková hlava"></div>
+      <div class="st">Extruder a tisková hlava</div>
+      <ul class="sl">
+        <li>zaseknutý filament</li>
+        <li>únik plastu z hotendu</li>
+        <li>nepravidelné podávání</li>
+        <li>opakované ucpávání</li>
+      </ul>
+    </div>
+    <div class="scard">
+      <div class="s-icon-wrap"><img src="assets/repairs/elektronika.png" alt="Elektronika a chyby systému"></div>
+      <div class="st">Elektronika a chyby systému</div>
+      <ul class="sl">
+        <li>tiskárna se nezapne nebo padá</li>
+        <li>chybové hlášky bez jasné příčiny</li>
+        <li>problémy s AMS</li>
+      </ul>
+    </div>
+    <div class="scard">
+      <div class="s-icon-wrap"><img src="assets/repairs/kalibrace.png" alt="Kalibrace a senzory"></div>
+      <div class="st">Kalibrace a senzory</div>
+      <ul class="sl">
+        <li>selhání first layer kontroly</li>
+        <li>neúspěšné auto-leveling</li>
+        <li>nekonzistentní tisk</li>
+      </ul>
+    </div>
+    <div class="scard">
+      <div class="s-icon-wrap"><img src="assets/repairs/teplota.png" alt="Teplotní chyby"></div>
+      <div class="st">Teplotní chyby</div>
+      <ul class="sl">
+        <li>thermal runaway chyby</li>
+        <li>nehřeje tryska nebo podložka</li>
+        <li>nestabilní teploty</li>
+      </ul>
+    </div>
+    <div class="scard">
+      <div class="s-icon-wrap"><img src="assets/repairs/ams.png" alt="AMS - multimateriálové systémy"></div>
+      <div class="st">AMS - multimateriálové systémy</div>
+      <ul class="sl">
+        <li>filament se zasekává</li>
+        <li>tiskárna nerozpozná cívku</li>
+        <li>chyby při změně materiálu</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="tym">
+  <div class="reveal">
+    <div class="eyebrow">Kdo za tím stojí</div>
+    <h2>Tři lidi.<br>Desítky let zkušeností.</h2>
+    <p class="sub">Každý z nás přináší něco jiného — dohromady pokryjeme všechno od servisu přes design až po provoz farmy.</p>
+  </div>
+  <div class="team-grid">
+
+    <!-- Štefan — hlavní tvář -->
+    <div class="tcard star reveal d1">
+      <div class="tavatar" style="border-color:rgba(255,82,22,.4)">
+        <svg width="66" height="66" viewBox="0 0 66 66" fill="none">
+          <circle cx="33" cy="33" r="33" fill="#10151c"/>
+          <rect x="10" y="46" width="46" height="26" rx="11" fill="#1c3a52"/>
+          <rect x="38" y="52" width="11" height="9" rx="1" fill="#ff5216" opacity=".8"/>
+          <circle cx="33" cy="28" r="15" fill="#c8884a"/>
+          <path d="M18 22 Q20 11 33 9 Q46 11 48 22" fill="#2a1808"/>
+          <path d="M19 32 Q21 40 33 42 Q45 40 47 32" fill="#a07040" opacity=".35"/>
+          <circle cx="25" cy="26" r="2.4" fill="#1a1208"/>
+          <circle cx="41" cy="26" r="2.4" fill="#1a1208"/>
+          <path d="M22 36 Q33 44 44 36" stroke="#1a1208" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M21 21 Q25 19 29 21" stroke="#2a1808" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <path d="M37 21 Q41 19 45 21" stroke="#2a1808" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="trole">// Servisní technik & tvář firmy</div>
+      <div class="tname">Štefan</div>
+      <div class="tbio">Prošel výrobou 3D tiskáren, dnes denně obsluhuje a servisuje farmu vybavenou desítkami tiskáren Bambu Lab i Prusa. Kompletace, servis, opravy. Štefan opraví cokoliv mu přijde pod ruku. Zavoláte mu — a on to vyřeší. Vždy s úsměvem.</div>
+      <div class="tbadge">🏭 Bambu Lab farma · servis každý den</div>
+    </div>
+
+    <!-- Ondřej -->
+    <div class="tcard reveal d2">
+      <div class="tavatar">
+        <svg width="66" height="66" viewBox="0 0 66 66" fill="none">
+          <circle cx="33" cy="33" r="33" fill="#10151c"/>
+          <rect x="12" y="46" width="42" height="26" rx="11" fill="#1c2d42"/>
+          <circle cx="33" cy="28" r="15" fill="#c8884a"/>
+          <path d="M18 22 Q20 11 33 9 Q46 11 48 22" fill="#c4b09a"/>
+          <circle cx="25" cy="27" r="2.2" fill="#1a1208"/>
+          <circle cx="41" cy="27" r="2.2" fill="#1a1208"/>
+          <path d="M26 36 Q33 40 40 36" stroke="#1a1208" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="trole">// Tech lead</div>
+      <div class="tname">Ondřej</div>
+      <div class="tbio">8 let intenzivní práce s vývojem a testováním 3D tiskáren na nejvyšší úrovni. Zná 3D tisk od software přes mechaniku až po materiálové vlastnosti — tohle je týmový mozek.</div>
+      <div class="tbadge">🔬 8 let vývoje 3D tiskáren</div>
+    </div>
+
+    <!-- Vojta -->
+    <div class="tcard reveal d3">
+      <div class="tavatar">
+        <svg width="66" height="66" viewBox="0 0 66 66" fill="none">
+          <circle cx="33" cy="33" r="33" fill="#10151c"/>
+          <rect x="12" y="46" width="42" height="26" rx="11" fill="#1c3a2a"/>
+          <circle cx="33" cy="28" r="15" fill="#d0a070"/>
+          <path d="M18 18 Q18 7 33 6 Q48 7 48 18 L48 24 Q44 16 33 16 Q22 16 18 24 Z" fill="#3a2614"/>
+          <path d="M18 24 Q16 28 18 33" stroke="#3a2614" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <path d="M48 24 Q50 28 48 33" stroke="#3a2614" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+          <circle cx="25" cy="27" r="2.4" fill="#1a1208"/>
+          <circle cx="41" cy="27" r="2.4" fill="#1a1208"/>
+          <path d="M25 36 Q30 39 41 35" stroke="#1a1208" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+          <rect x="13" y="21" width="3" height="11" rx="1" fill="#f5c842" transform="rotate(-15,14,27)"/>
+          <rect x="12" y="19" width="3" height="4" rx="1" fill="#5c3d1a" transform="rotate(-15,14,27)"/>
+        </svg>
+      </div>
+      <div class="trole">// Průmyslový designér</div>
+      <div class="tname">Vojta</div>
+      <div class="tbio">Průmyslový designér s desítkami realizovaných projektů. Pokud potřebuješ víc než jen díru a hranu — Vojta promění myšlenku v krásný, funkční produkt. CAD, ergonomie, estetika.</div>
+      <div class="tbadge">🎨 Desítky průmyslových projektů</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="postup">
+  <div class="reveal">
+    <div class="eyebrow">Jak to funguje</div>
+    <h2>Jednoduše.</h2>
+  </div>
+  <div class="psteps reveal">
+    <div class="pstep"><div class="psn">01</div><div><div class="pst">Zavolejte nebo napište</div><div class="psd">Zavolejte — je to nejrychlejší, zvedneme hned. Nebo napište a pošlete 3D model: odpovídáme do 1–2 hodin.</div></div></div>
+    <div class="pstep"><div class="psn">02</div><div><div class="pst">Poptávka & nacenění</div><div class="psd">Upřesníme detaily a pošleme závaznou nabídku. Bez skrytých poplatků, vše předem.</div></div></div>
+    <div class="pstep"><div class="psn">03</div><div><div class="pst">Doprava k nám</div><div class="psd">Pokud využíváte servis, tiskárnu přivezete osobně nebo ji vyzvedneme kurýrem. Soubory k tisku stačí nasdílet.</div></div></div>
+    <div class="pstep"><div class="psn">04</div><div><div class="pst">Opravíme / vytiskneme</div><div class="psd">Servis nebo tisk s výstupní kontrolou. Expres zakázky prioritizujeme.</div></div></div>
+    <div class="pstep"><div class="psn">05</div><div><div class="pst">Dodání zpět</div><div class="psd">Přepravní službou, nebo osobní vyzvednutí.</div></div></div>
+  </div>
+</section>
+
+<!-- REFERENCE -->
+<section id="reference">
+  <div class="reveal">
+    <div class="eyebrow">Reference</div>
+    <h2>Co říkají<br>zákazníci.</h2>
+    <p class="sub">Stovky opravených tiskáren. Tisíce vytisknutých dílů. Vrací se k nám, protože víme, co děláme.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="tecard reveal"><div class="stars" aria-hidden="true">★★★★★</div><div class="tetext">Super přístup, rychlost a ochota jak se servisem. Tiskárnu jsem měl zpět do 3 dnů v perfektním stavu.</div><div class="teauth">Robert K.</div><div class="terole">Hobby maker · Praha</div></div>
+    <div class="tecard reveal d1"><div class="stars" aria-hidden="true">★★★★★</div><img class="teimg" src="assets/reviews/technical-parts.png" alt="Tři 3D díly vedle sebe"><div class="tetext">Naprostá spokojenost. Velice vstřícné jednání a profesionalita. Tiskneme pro naši firmu prototypy, dodací lhůta vždy splněna.</div><div class="teauth">Petr V.</div><div class="terole">Konstruktér · Ostrava</div></div>
+    <div class="tecard reveal d2"><div class="stars" aria-hidden="true">★★★★★</div><img class="teimg" src="assets/reviews/series-crate.png" alt="Sériová výroba 3D dílů"><div class="tetext">Potřeboval jsem sérii 300 kusů do pondělí. Zavolal jsem ve čtvrtek večer a v pondělí ráno byly díly u mě. Neuvěřitelný servis.</div><div class="teauth">Ondřej M.</div><div class="terole">Produktový manažer · Brno</div></div>
+    <div class="tecard reveal"><div class="stars" aria-hidden="true">★★★★★</div><img class="teimg" src="assets/reviews/design-lamp-white.png" alt="Designový produkt z 3D tisku"><div class="tetext">Vojta navrhl díl přesně podle mé skici a výsledek byl lepší, než co jsem si představoval. Teď ho vyrábíme každý měsíc v sérii.</div><div class="teauth">Jana S.</div><div class="terole">Designérka · Plzeň</div></div>
+    <div class="tecard reveal d1"><div class="stars" aria-hidden="true">★★★★★</div><img class="teimg" src="assets/reviews/extruder-jam.png" alt="Zaseknutý extruder a filament u tiskárny"><div class="tetext">Měl jsem zaseknutý extruder a filament v hotendu — tiskárna nešla rozchodit. Našli příčinu hned, vysvětlili mi to srozumitelně a po opravě zase tiskne bez problémů. Každému doporučuji.</div><div class="teauth">Tomáš Ch.</div><div class="terole">Nadšenec · Liberec</div></div>
+    <div class="tecard reveal d2"><div class="stars" aria-hidden="true">★★★★★</div><div class="tetext">Normální lidi, normální cena, perfektní výsledek. Konečně servis kde nemusíš nic vysvětlovat — oni to prostě znají.</div><div class="teauth">Michal B.</div><div class="terole">FabLab operátor · Olomouc</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="kontakt">
+  <div class="ct-wrap">
+    <div class="reveal">
+      <div class="eyebrow">Kontakt</div>
+      <h2>Pojďme to<br><span style="color:var(--orange)">vyřešit spolu.</span></h2>
+      <p class="sub" style="margin-bottom:1.5rem"><span class="sub-strong">Zavolejte — je to nejrychlejší nebo napište.</span> Servis řešte se Štefanem, 3D tisk a poptávky s Ondřejem. Formulář je také možnost — nezávazně, přátelsky.</p>
+      <div class="ct-items">
+        <div class="ct-group">
+          <div class="ct-group-role">Servis tiskáren</div>
+          <div class="ci"><div class="ci-icon"><span class="material-symbols-outlined">call</span></div><div><div class="ci-l">Přímá linka ŠTEFAN</div><div class="ci-v"><a href="tel:+420000000000">+420 000 000 000</a></div></div></div>
+        </div>
+        <div class="ct-group">
+          <div class="ct-group-role">3D tisk &amp; poptávky</div>
+          <div class="ci"><div class="ci-icon"><span class="material-symbols-outlined">call</span></div><div><div class="ci-l">Přímá linka ONDŘEJ</div><div class="ci-v"><a href="tel:+420000000000">+420 000 000 000</a></div></div></div>
+          <div class="ci"><div class="ci-icon"><span class="material-symbols-outlined">mail</span></div><div><div class="ci-l">E-mail</div><div class="ci-v"><a href="mailto:info@3dservis.cz">info@3dservis.cz</a></div></div></div>
+        </div>
+        <div class="ci"><div class="ci-icon"><span class="material-symbols-outlined">location_on</span></div><div><div class="ci-l">Pobočka</div><div class="ci-v">Nademlejnská 600/1<br>Praha 9 Hloubětín</div></div></div>
+        <div class="ci"><div class="ci-icon"><span class="material-symbols-outlined">schedule</span></div><div><div class="ci-l">Provozní doba</div><div class="ci-v">Po tel. domluvě</div></div></div>
+      </div>
+      <div class="ct-map">
+        <div class="ct-map-frame-wrap">
+          <iframe class="ct-map-frame" title="Pobočka na mapě — Nademlejnská 600/1, Praha 9" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen src="https://maps.google.com/maps?q=50.1018614%2C14.5279861&amp;z=17&amp;hl=cs&amp;ie=UTF8&amp;output=embed"></iframe>
+        </div>
+        <a class="ct-map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Nademlejnsk%C3%A1+600%2F1%2C+198+00+Praha+9+Hloub%C4%9Bt%C3%ADn" target="_blank" rel="noopener noreferrer">Otevřít v Google Maps →</a>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <p class="form-hint" style="margin:0 0 1rem">Nejrychlejší odezva je po telefonu — <a href="tel:+420000000000" style="color:var(--orange2);text-decoration:none;font-weight:600">zavolejte</a>.</p>
+      <form onsubmit="handleForm(event)">
+        <div class="form-row fg">
+          <div><label>Jméno *</label><input type="text" placeholder="Jan Novák" required></div>
+          <div><label>E-mail *</label><input type="email" placeholder="jan@firma.cz" required></div>
+        </div>
+        <div class="fg"><label>Telefon</label><input type="tel" placeholder="+420 ..."></div>
+        <div class="fg"><label>Co potřebuješ? *</label>
+          <select required>
+            <option value="">— Vyber typ poptávky —</option>
+            <option>Servis / oprava tiskárny</option>
+            <option>Upgrade tiskárny</option>
+            <option>Zakázkový 3D tisk</option>
+            <option>3D modelování (Vojta)</option>
+            <option>Náhradní díl na míru</option>
+            <option>Sériová výroba</option>
+            <option>Jiné / poradenství</option>
+          </select>
+        </div>
+        <div class="fg"><label>Popis *</label><textarea placeholder="Popiš problém nebo co potřebuješ — čím víc víme, tím lépe ti pomůžeme..." required></textarea></div>
+        <div class="fg">
+          <label>Přílohy</label>
+          <input type="file" id="prilohy" name="prilohy" multiple accept=".stl,.step,.stp,.obj,.3mf,.iges,.igs,.dae,.fbx,.zip,.rar,.pdf,image/*">
+          <p class="form-hint">3D model (STL, STEP, OBJ, 3MF…) nebo fotky, PDF, archiv — více souborů najednou.</p>
+          <p id="file-names" aria-live="polite"></p>
+        </div>
+        <button type="submit" class="form-btn">Odeslat poptávku →</button>
+        <p id="form-ok">✓ Odesláno! Ozveme se co nejdřív.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-inner">
+    <div class="flogo"><span class="logo-3d">3D</span>Servis</div>
+    <div class="f-company">
+      <div class="f-company-label">Provozovatel · sídlo</div>
+      Ondřej Veverka<br>Kostelní Hlavno 138<br>IČO: 05577063
+    </div>
+    <div class="f-legal">
+      <span>© 2026 3DServis</span>
+      <a href="#">Ochrana osobních údajů</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+function animateCounters(){document.querySelectorAll('[data-target]').forEach(el=>{const t=+el.dataset.target,s=el.textContent.replace(/[0-9]/g,'');let start=null;const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/1800,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*t)+s;if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)})}
+new IntersectionObserver(es=>{if(es[0].isIntersecting)animateCounters()},{threshold:.5}).observe(document.querySelector('.hero-stats'));
+function handleForm(e){e.preventDefault();document.getElementById('form-ok').style.display='block';e.target.reset();const fn=document.getElementById('file-names');if(fn)fn.textContent='';setTimeout(()=>{document.getElementById('form-ok').style.display='none'},6000)}
+document.getElementById('prilohy')?.addEventListener('change',function(){const el=document.getElementById('file-names');if(!el)return;if(!this.files.length){el.textContent='';return}el.textContent=Array.from(this.files).map(f=>f.name).join(' · ')});
+window.addEventListener('scroll',()=>{let c='';document.querySelectorAll('section[id]').forEach(s=>{if(window.scrollY>=s.offsetTop-80)c=s.id});document.querySelectorAll('.nav-links a[href^="#"]').forEach(a=>{a.style.color=a.getAttribute('href')==='#'+c?'var(--text)':''})},{passive:true});
+</script>
+</body>
+</html>
