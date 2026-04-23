@@ -247,8 +247,11 @@ input:not([type=file]),textarea,select{width:100%;background:var(--card);border:
 input::placeholder,textarea::placeholder{color:var(--muted2)}
 input:not([type=file]):focus,textarea:focus,select:focus{border-color:var(--orange)}
 .file-input-hidden{display:none !important}
+.file-actions{display:flex;gap:.55rem;align-items:center;flex-wrap:wrap}
 .file-picker-btn{display:inline-block;font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.55rem 1rem;border:1px solid var(--border2);border-radius:4px;background:var(--card);color:var(--text);cursor:pointer;transition:border-color .2s,background .2s;margin-bottom:.2rem}
 .file-picker-btn:hover{border-color:var(--orange)}
+.file-clear-btn{display:inline-block;font-family:'Rajdhani',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.55rem 1rem;border:1px solid var(--border2);border-radius:4px;background:transparent;color:var(--muted);cursor:pointer;transition:border-color .2s,color .2s;margin-bottom:.2rem}
+.file-clear-btn:hover{border-color:var(--orange);color:var(--orange2)}
 .form-hint{font-size:.72rem;color:var(--muted2);margin-top:.35rem;line-height:1.45}
 .form-hint a:hover{text-decoration:underline}
 .btn-wa{display:inline-flex;align-items:center;justify-content:center;width:100%;margin:0 0 1rem;background:#25d366;color:#fff;padding:.8rem 1.5rem;border-radius:3px;font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.05em;text-decoration:none;text-transform:uppercase;transition:background .2s,box-shadow .2s;box-shadow:0 0 20px rgba(37,211,102,.25)}

@@ -705,7 +705,10 @@
         <div class="fg">
           <label for="prilohy">Nahrát soubor (volitelné)</label>
           <input type="file" id="prilohy" name="attachment" class="file-input-hidden" accept=".stl,.step,.stp,.obj,.3mf,.iges,.igs,.dae,.fbx,.zip,.rar,.pdf,image/*">
-          <button type="button" id="pick-file-btn" class="file-picker-btn">Vybrat soubor</button>
+          <div class="file-actions">
+            <button type="button" id="pick-file-btn" class="file-picker-btn">Vybrat soubor</button>
+            <button type="button" id="clear-file-btn" class="file-clear-btn">Smazat soubor</button>
+          </div>
           <p id="file-names" aria-live="polite"></p>
           <p class="form-hint">STL, STEP, 3MF, PDF, obrázky, ZIP… — <strong>1 soubor max. 10 MB</strong>. Pro více souborů použijte odkaz na Drive/Dropbox níže.</p>
         </div>
@@ -766,8 +769,13 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 function animateCounters(){document.querySelectorAll('[data-target]').forEach(el=>{const t=+el.dataset.target,pfx=el.dataset.prefix||'',suf=el.dataset.suffix!==undefined?el.dataset.suffix:String(el.textContent).replace(/[0-9]/g,'');let start=null;const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/1800,1),e=1-Math.pow(1-p,3);el.textContent=pfx+Math.round(e*t)+suf;if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)})}
 new IntersectionObserver(es=>{if(es[0].isIntersecting)animateCounters()},{threshold:.5}).observe(document.querySelector('.hero-stats'));
 const FORMSUBMIT_EMAIL='ondrej@3dservispraha.cz';
-const FORMSUBMIT_ENDPOINT='https://formsubmit.co/ajax/'+encodeURIComponent(FORMSUBMIT_EMAIL);
-async function handleForm(e){
+const FORMSUBMIT_ENDPOINT='https://formsubmit.co/'+encodeURIComponent(FORMSUBMIT_EMAIL);
+function trackLeadSuccess(){
+  if(typeof gtag!=='function') return;
+  gtag('event','form_submit_success',{event_category:'lead',event_label:'poptavka_form'});
+  if(window.ADS_CONVERSION_SEND_TO){gtag('event','conversion',{send_to:window.ADS_CONVERSION_SEND_TO})}
+}
+function handleForm(e){
   e.preventDefault();
   const form=e.target;
   const ok=document.getElementById('form-ok');
@@ -787,41 +795,59 @@ async function handleForm(e){
         return
       }
     }
-    const fd=new FormData(form);
-    if(pril&&pril.files&&pril.files[0]) fd.set('attachment',pril.files[0]);
     const emailField=form.querySelector('#pf-email');
-    if(emailField&&emailField.value)fd.set('_replyto',emailField.value.trim());
-    const telField=form.querySelector('#pf-tel');
-    if(telField&&telField.value)fd.set('telefon',telField.value.trim());
-    const ctrl=new AbortController();
-    const t=setTimeout(()=>ctrl.abort(),15000);
-    const res=await fetch(FORMSUBMIT_ENDPOINT,{method:'POST',body:fd,headers:{Accept:'application/json'},signal:ctrl.signal});
-    clearTimeout(t);
-    const data=await res.json().catch(()=>({}));
-    if(res.ok&&(data.success===true||data.success==='true')){
-      ok.style.display='block';
-      form.reset();
-      const fn=document.getElementById('file-names');
-      if(fn)fn.textContent='';
-      if(typeof gtag==='function'){
-        gtag('event','form_submit_success',{event_category:'lead',event_label:'poptavka_form'});
-        if(window.ADS_CONVERSION_SEND_TO){gtag('event','conversion',{send_to:window.ADS_CONVERSION_SEND_TO})}
+    if(emailField&&emailField.value){
+      const reply=emailField.value.trim();
+      let replyInput=form.querySelector('input[name="_replyto"]');
+      if(!replyInput){
+        replyInput=document.createElement('input');
+        replyInput.type='hidden';
+        replyInput.name='_replyto';
+        form.appendChild(replyInput);
       }
-      setTimeout(()=>{ok.style.display='none'},8000)
-    }else{
-      const rawMsg=(data&&data.message)?String(data.message):'Odeslání se nezdařilo. Zkuste znovu nebo zavolejte.';
-      const msg=/confirm|activate|verification|ov[eě]řen/i.test(rawMsg)?'Je potřeba potvrdit schránku FormSubmit. Zkontroluj e-mail ondrej@3dservispraha.cz a klikni na aktivační odkaz, potom odeslání poběží.':rawMsg;
-      throw new Error(msg)
+      replyInput.value=reply;
+      emailField.value=reply;
     }
+    const telField=form.querySelector('#pf-tel');
+    if(telField&&telField.value)telField.value=telField.value.trim();
+    const frameName='formsubmit_target_'+Date.now();
+    const iframe=document.createElement('iframe');
+    iframe.name=frameName;
+    iframe.style.display='none';
+    document.body.appendChild(iframe);
+    form.action=FORMSUBMIT_ENDPOINT;
+    form.target=frameName;
+    let finished=false;
+    const done=(okState,msg)=>{
+      if(finished) return;
+      finished=true;
+      if(okState){
+        ok.style.display='block';
+        form.reset();
+        const fn=document.getElementById('file-names');
+        if(fn)fn.textContent='';
+        trackLeadSuccess();
+        setTimeout(()=>{ok.style.display='none'},9000);
+      }else if(errEl){
+        errEl.textContent=msg;
+        errEl.style.display='block';
+      }
+      btn.disabled=false;
+      setTimeout(()=>{iframe.remove()},800);
+    };
+    const timeout=setTimeout(()=>done(false,'Odeslání se nevrátilo včas. Pokud je to první odeslání z FormSubmit, potvrďte aktivační e-mail pro ondrej@3dservispraha.cz a zkuste to znovu.'),20000);
+    iframe.addEventListener('load',()=>{clearTimeout(timeout);done(true)});
+    form.submit();
   }catch(x){
-    const msg=(x&&x.name==='AbortError')?'Formulář se neodeslal včas. Zkuste to prosím znovu.':(x.message||'Chyba sítě. Zkuste to znovu nebo napište přímo na e-mail.');
+    const msg=x&&x.message?x.message:'Chyba odeslání. Zkuste to znovu nebo napište přímo na e-mail.';
     if(errEl){errEl.textContent=msg;errEl.style.display='block'}
-  }finally{
-    btn.disabled=false
+    btn.disabled=false;
   }
 }
+/* Starší AJAX odesílání bylo nespolehlivé pro přílohy; necháváme POST přes iframe. */
 const fileInput=document.getElementById('prilohy');
 document.getElementById('pick-file-btn')?.addEventListener('click',()=>fileInput?.click());
+document.getElementById('clear-file-btn')?.addEventListener('click',()=>{if(!fileInput)return;fileInput.value='';const el=document.getElementById('file-names');if(el)el.textContent='';});
 fileInput?.addEventListener('change',function(){const el=document.getElementById('file-names');if(!el)return;if(!this.files.length){el.textContent='';return}const cleanName=n=>(n||'').normalize('NFC').replace(/\uFFFD/g,'').replace(/[\p{Cc}\p{Cf}\p{Cs}\p{Co}\p{Cn}]/gu,'').replace(/[^\p{L}\p{N}\p{M}\p{Zs}._\-()[\]]/gu,'').trim();const names=Array.from(this.files).map(f=>cleanName(f.name)).join(' · ');let b=0;for(const f of this.files)b+=f.size;const mb=(b/1048576).toFixed(2);el.textContent=names+(b?` — celkem ${mb} MB`:'')});
 document.querySelectorAll('a[href^="tel:"],a[href*="wa.me/"]').forEach(a=>a.addEventListener('click',()=>{
   if(typeof gtag!=='function') return;
