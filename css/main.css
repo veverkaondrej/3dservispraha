@@ -57,7 +57,13 @@ h1 .acc2{color:var(--cyan)}
 .hero-lead{font-size:1.05rem;color:var(--muted);max-width:490px;margin-bottom:2.2rem;line-height:1.75;animation:fadeUp .6s .2s ease both}
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
 .hero-stats{display:flex;gap:3rem;flex-wrap:wrap;margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid var(--border);animation:fadeUp .6s .42s ease both}
-.stat-n{font-family:'Rajdhani',sans-serif;font-size:2.3rem;font-weight:700;color:var(--orange);line-height:1}
+.stat-n{font-family:'Rajdhani',sans-serif;font-size:2.3rem;font-weight:700;color:var(--orange);line-height:1;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;display:inline-block;vertical-align:top}
+/* Min. šířka podle finálního textu — při animaci se sloupec neroztahuje a flex-wrap neskáče nahoru */
+.hero-stats>div:nth-child(1) .stat-n{min-inline-size:5.25ch}
+.hero-stats>div:nth-child(2) .stat-n{min-inline-size:7.5ch}
+.hero-stats>div:nth-child(3) .stat-n{min-inline-size:2ch}
+.hero-stats>div:nth-child(4) .stat-n{min-inline-size:6ch}
+.hero-stats>div:nth-child(5) .stat-n{min-inline-size:5ch}
 .stat-l{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;margin-top:.18rem}
 .hero-logistics{margin-top:1.9rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.85rem;max-width:1120px;animation:fadeUp .6s .5s ease both}
 .hero-branch{border:1px solid rgba(255,255,255,.28);border-radius:6px;background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(7,9,13,.68));padding:1rem 1.05rem .85rem}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Business Cover - 3DServis Praha</title>
+<style>
+  :root{
+    --bg:#07090d;
+    --bg2:#0c0f14;
+    --orange:#ff5216;
+    --orange2:#ff7a42;
+    --text:#dde4ed;
+    --muted:#7f93a8;
+    --border:#243040;
+  }
+  *{box-sizing:border-box}
+  html,body{
+    margin:0;
+    background:#111;
+    min-height:100%;
+    font-family: "Segoe UI", Arial, sans-serif;
+    display:grid;
+    place-items:center;
+    padding:24px;
+  }
+  .cover{
+    width:1024px;
+    height:576px;
+    position:relative;
+    overflow:hidden;
+    border-radius:10px;
+    background:
+      radial-gradient(500px 260px at 75% 20%, rgba(255,82,22,.16), transparent 70%),
+      radial-gradient(380px 200px at 22% 82%, rgba(0,207,238,.10), transparent 70%),
+      linear-gradient(180deg,var(--bg2),var(--bg));
+    border:1px solid #1b2633;
+  }
+  .grid{
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(255,82,22,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,82,22,.06) 1px, transparent 1px);
+    background-size:46px 46px;
+    opacity:.35;
+    pointer-events:none;
+  }
+  .inner{
+    position:relative;
+    z-index:2;
+    height:100%;
+    padding:44px 54px;
+    display:grid;
+    grid-template-columns: 1fr 420px;
+    gap:28px;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:52px;
+    font-weight:800;
+    line-height:1;
+    margin-top:4px;
+    letter-spacing:.01em;
+  }
+  .logo .d3{color:var(--orange)}
+  .logo .sp{color:var(--text)}
+  .subtitle{
+    margin-top:16px;
+    color:var(--muted);
+    font-size:20px;
+    max-width:480px;
+  }
+  .services{
+    margin-top:42px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .service{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:34px;
+    font-weight:700;
+    color:var(--text);
+    line-height:1.15;
+  }
+  .dot{
+    width:10px;height:10px;border-radius:50%;
+    background:var(--orange);
+    box-shadow:0 0 18px rgba(255,82,22,.8);
+    flex:0 0 auto;
+  }
+  .tag{
+    margin-top:22px;
+    color:#b6c2cf;
+    font-size:18px;
+    letter-spacing:.02em;
+  }
+  .printer{
+    align-self:center;
+    justify-self:end;
+    width:410px;
+    height:430px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:linear-gradient(180deg,rgba(16,21,28,.9),rgba(7,9,13,.92));
+    display:grid;
+    place-items:center;
+    box-shadow:0 20px 46px rgba(0,0,0,.45);
+  }
+  .printer svg{width:92%;height:auto;display:block}
+  .note{
+    position:absolute;
+    right:18px;
+    bottom:14px;
+    font-size:12px;
+    color:#8092a5;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+  <div class="cover">
+    <div class="grid"></div>
+    <div class="inner">
+      <div>
+        <div class="logo"><span class="d3">3D</span><span class="sp">Servis Praha</span></div>
+        <div class="subtitle">Profesionální 3D služby pro firmy i jednotlivce.</div>
+        <div class="services">
+          <div class="service"><span class="dot"></span><span>Servis 3D tiskáren</span></div>
+          <div class="service"><span class="dot"></span><span>Zakázkový 3D tisk</span></div>
+          <div class="service"><span class="dot"></span><span>3D modelování dílů</span></div>
+        </div>
+        <div class="tag">Praha a okolí</div>
+      </div>
+      <div class="printer" aria-hidden="true">
+        <svg viewBox="0 0 400 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="55" y="45" width="290" height="330" rx="15" fill="#0c0f14" stroke="#1c2530" stroke-width="1.5"/>
+          <rect x="55" y="45" width="290" height="56" rx="15" fill="#10151c" stroke="#1c2530" stroke-width="1.5"/>
+          <rect x="70" y="56" width="76" height="34" rx="4" fill="#07090d"/>
+          <rect x="72" y="58" width="72" height="30" rx="3" fill="#060c14"/>
+          <text x="108" y="77" font-family="monospace" font-size="9" fill="#ff5216" text-anchor="middle">PRINT 87%</text>
+          <rect x="180" y="51" width="150" height="40" rx="7" fill="#10151c" stroke="#1c2530" stroke-width="1.5"/>
+          <rect x="187" y="57" width="24" height="24" rx="3" fill="#ff5216" opacity=".85"/>
+          <rect x="216" y="57" width="24" height="24" rx="3" fill="#1a5fa8" opacity=".85"/>
+          <rect x="245" y="57" width="24" height="24" rx="3" fill="#2d7a4f" opacity=".85"/>
+          <rect x="274" y="57" width="24" height="24" rx="3" fill="#c8a020" opacity=".85"/>
+          <rect x="303" y="57" width="18" height="24" rx="3" fill="#1c2530"/>
+          <rect x="70" y="108" width="260" height="242" rx="5" fill="#060810" stroke="#1c2530" stroke-width="1.5"/>
+          <rect x="80" y="116" width="10" height="226" rx="4" fill="#10151c"/>
+          <rect x="310" y="116" width="10" height="226" rx="4" fill="#10151c"/>
+          <rect x="80" y="116" width="240" height="10" rx="4" fill="#10151c"/>
+          <rect x="150" y="164" width="100" height="28" rx="4" fill="#10151c" stroke="#1c2530" stroke-width="1.5"/>
+          <rect x="158" y="172" width="84" height="12" rx="3" fill="#1c2530"/>
+          <path d="M195 192 L200 210 L205 192" fill="#ff5216" opacity=".8"/>
+          <path d="M207 60 Q210 120 200 164" stroke="#ff5216" stroke-width="1.8" stroke-dasharray="5,4" fill="none" opacity=".4"/>
+          <rect x="82" y="304" width="236" height="12" rx="4" fill="#10151c" stroke="#1c2530" stroke-width="1"/>
+          <circle cx="253" cy="144" r="5.5" fill="none" stroke="#ff7a42" stroke-width="1.5"/>
+          <path d="M257 140 L264 133" stroke="#ff7a42" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="265.5" cy="131.5" r="1.8" fill="#ff7a42"/>
+          <text x="280" y="147" font-family="monospace" font-size="7.2" fill="#ff7a42" letter-spacing=".08em">SERVIS</text>
+        </svg>
+      </div>
+    </div>
+    <div class="note">Google Business cover 1024x576</div>
+  </div>
+</body>
+</html>

@@ -29,7 +29,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Space+Mono:wght@400;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0;1" rel="stylesheet">
-<link rel="stylesheet" href="css/main.css?v=20260423-2">
+<link rel="stylesheet" href="css/main.css?v=20260511-statw">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -730,7 +730,7 @@
   </div>
 </footer>
 
-<script src="js/tracking.js" defer></script>
+<script src="js/tracking.js?v=20260511-consent" defer></script>
 <script src="js/cookie-banner.js" defer></script>
 <script>
 if('scrollRestoration' in history) history.scrollRestoration='manual';
@@ -756,8 +756,50 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a){
 });
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-function animateCounters(){document.querySelectorAll('[data-target]').forEach(el=>{const t=+el.dataset.target,pfx=el.dataset.prefix||'',suf=el.dataset.suffix!==undefined?el.dataset.suffix:String(el.textContent).replace(/[0-9]/g,'');let start=null;const step=ts=>{if(!start)start=ts;const p=Math.min((ts-start)/1800,1),e=1-Math.pow(1-p,3);el.textContent=pfx+Math.round(e*t)+suf;if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)})}
-new IntersectionObserver(es=>{if(es[0].isIntersecting)animateCounters()},{threshold:.5}).observe(document.querySelector('.hero-stats'));
+(function(){
+  var statsEl=document.querySelector('.hero-stats');
+  if(!statsEl)return;
+  var ran=false;
+  function parseSuffix(el){
+    if(el.dataset.suffix!==undefined)return el.dataset.suffix;
+    return String(el.textContent).replace(/[0-9]/g,'');
+  }
+  function animateCounters(){
+    if(ran)return;
+    ran=true;
+    var nodes=document.querySelectorAll('[data-target]');
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      nodes.forEach(function(el){
+        el.textContent=(el.dataset.prefix||'')+(+el.dataset.target)+parseSuffix(el);
+      });
+      return;
+    }
+    var items=Array.prototype.map.call(nodes,function(el){
+      return{el:el,target:+el.dataset.target,pfx:el.dataset.prefix||'',suf:parseSuffix(el)};
+    });
+    var dur=2100;
+    var t0=performance.now();
+    function easeInOutCubic(t){
+      return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+    }
+    function tick(now){
+      var p=Math.min((now-t0)/dur,1);
+      var e=easeInOutCubic(p);
+      for(var i=0;i<items.length;i++){
+        var s=items[i];
+        s.el.textContent=s.pfx+Math.round(e*s.target)+s.suf;
+      }
+      if(p<1)requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var obs=new IntersectionObserver(function(es){
+    if(!es[0]||!es[0].isIntersecting)return;
+    obs.disconnect();
+    animateCounters();
+  },{threshold:0.35,rootMargin:'0px 0px -8% 0px'});
+  obs.observe(statsEl);
+})();
 const FORMSUBMIT_EMAIL='ondrej@3dservispraha.cz';
 const FORMSUBMIT_ENDPOINT='https://formsubmit.co/'+encodeURIComponent(FORMSUBMIT_EMAIL);
 function trackLeadSuccess(){

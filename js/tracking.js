@@ -1,14 +1,25 @@
 /**
- * Google Analytics 4 + Google Ads (gtag.js)
- * 1) Vložte ID níže (Google Analytics → Admin → Data streams → Measurement ID = G-…)
- * 2) Google Ads → Nástroje → Měření konverzí → značka Google = AW-…
- * 3) Po nasazení lišty se souhlasem volejte acceptMarketingCookies(true) při souhlasu.
+ * Google Analytics 4 + Google Ads (gtag.js) + Consent Mode v2
+ * 1) GA4: Admin → Data streams → Measurement ID (G-…)
+ * 2) Ads: Měření konverzí → značka Google (AW-…)
+ * 3) Cookie lišta volá acceptMarketingCookies(true|false).
+ *
+ * Regionální výchozí stav (doporučení Google): denied jen v EHP + UK + CH,
+ * granted pro ostatní regiony — jinak diagnostika hlásí 0 % souhlasu i mimo EHP.
+ * @see https://developers.google.com/tag-platform/security/guides/consent?hl=cs
  */
 (function () {
   var GA4_ID = 'G-76VWCQRE7K';
   var ADS_ID = 'AW-856619583';
   var BOOT_ID = GA4_ID || ADS_ID;
   if (!BOOT_ID) return;
+
+  /** ISO 3166-1 alpha-2: EU27 + EHP (IS, LI, NO) + UK + CH */
+  var CONSENT_REQUIRED_REGIONS = [
+    'AT', 'BE', 'BG', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB',
+    'GR', 'HR', 'HU', 'IE', 'IS', 'IT', 'LI', 'LT', 'LU', 'LV', 'MT', 'NL', 'NO',
+    'PL', 'PT', 'RO', 'SE', 'SI', 'SK'
+  ];
 
   window.dataLayer = window.dataLayer || [];
   function gtag() {
@@ -21,7 +32,15 @@
     ad_user_data: 'denied',
     ad_personalization: 'denied',
     analytics_storage: 'denied',
-    wait_for_update: 500
+    wait_for_update: 500,
+    region: CONSENT_REQUIRED_REGIONS
+  });
+
+  gtag('consent', 'default', {
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
+    ad_personalization: 'granted',
+    analytics_storage: 'granted'
   });
 
   var s = document.createElement('script');
