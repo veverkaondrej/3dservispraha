@@ -1,0 +1,58 @@
+# 3D Servis Praha
+
+> Servis a opravy 3D tiskáren v Praze 9 – Hloubětín. Specializujeme se na Bambu Lab a Prusa. Zakázkový 3D tisk a modelování.
+
+## O nás
+
+3D Servis Praha je malá servisní firma se sídlem v Praze 9 – Hloubětín (Nademlejnská 600/1). Tým tvoří tři lidé: Ondřej (zakladatel, 8 let v Prusa Research), Vojta (průmyslový designér) a Honza (servisní technik).
+
+Specializujeme se na Bambu Lab (X1, P1, A1 series, AMS) a Prusa (MK4, MK3.5, MK3S, MINI, XL). Servisujeme i Creality, Anycubic, Voron, Elegoo, Qidi a Raise3D.
+
+## Služby
+
+### Servis a opravy 3D tiskáren
+
+- Diagnostika: 300 Kč (platí se jen bez opravy)
+- Delší hledání bez opravy: 950 Kč/hod
+- Základní servis (čištění, mazání, kalibrace): od 600 Kč
+- Výměna dílů: od 950 Kč
+- Extruder a mechanika: od 1 900 Kč
+- AMS a elektronika: od 2 850 Kč
+- Svoz tiskárny: 500 Kč do 15 minut jízdy, 1 000 Kč do 30 minut, každých dalších 15 minut +500 Kč
+
+### Zakázkový 3D tisk
+
+- Cena od 150 Kč za zakázku
+- Materiály: PLA, PETG, ASA, ABS, TPU, PA (nylon), PC
+- Vícebarevný tisk přes Bambu Lab AMS (až 5 barev)
+- Série od 10 kusů – cena za kus klesá
+
+### 3D modelování
+
+- Cena od 750 Kč za hodinu
+- Návrh ze skici, fotky nebo slovního popisu
+- Průmyslový design a prototypy
+
+## Kontakt
+
+- **Web:** https://www.3dservispraha.cz/
+- **Telefon:** +420 602 547 469
+- **WhatsApp:** https://wa.me/420602547469
+- **E-mail:** ondrej@3dservispraha.cz
+- **Adresa:** Nademlejnská 600/1, Praha 9 – Hloubětín, 198 00
+- **Otevřeno:** Úterý 7:00–11:00 (jiné dny po domluvě)
+- **Platba:** hotovost i karta
+
+## Navigace
+
+- Google Maps: https://www.google.com/maps/dir/?api=1&destination=50.10210865674258%2C14.52867521070992&travelmode=driving
+- Waze: https://www.waze.com/ul?ll=50.10210865674258,14.52867521070992&navigate=yes
+
+## Obsah webu
+
+- [Ceník](https://www.3dservispraha.cz/#cenik) – přehled cen servisu a 3D tisku
+- [Jak k nám](https://www.3dservispraha.cz/#jak-k-nam) – svoz nebo osobní předání
+- [Servis](https://www.3dservispraha.cz/#opravy) – přehled servisovaných značek
+- [3D tisk](https://www.3dservispraha.cz/#galerie) – zakázkový tisk a materiály
+- [FAQ](https://www.3dservispraha.cz/#faq) – časté otázky
+- [Kontakt](https://www.3dservispraha.cz/#kontakt) – formulář a mapa
