@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.3dservispraha.cz/sitemap.xml
+
+# AI assistants and LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# LLM-readable content
+# https://www.3dservispraha.cz/llms.txt
