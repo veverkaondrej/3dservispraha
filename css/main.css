@@ -27,7 +27,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:cen
 @media(max-width:780px){.nav-links{display:none}}
 
 /* SHARED */
-section{position:relative;z-index:1;padding:100px 5vw}
+section{position:relative;z-index:1;padding:100px max(5vw,calc((100% - 1280px) / 2))}
 .eyebrow{font-family:'Space Mono',monospace;font-size:.68rem;color:var(--orange);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
 .eyebrow::before{content:'//';color:var(--muted2)}
 h2{font-family:'Rajdhani',sans-serif;font-size:clamp(2rem,4.8vw,3.4rem);font-weight:700;line-height:1.05;letter-spacing:-.01em;margin-bottom:1rem}
