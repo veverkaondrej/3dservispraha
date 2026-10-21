@@ -1,58 +1,61 @@
 # 3D Servis Praha
+> Servis, diagnostika a opravy 3D tiskáren v Praze 9. Specializace Bambu Lab a Prusa. Tříčlenný tým s denní praxí.
 
-> Servis a opravy 3D tiskáren v Praze 9 – Hloubětín. Specializujeme se na Bambu Lab a Prusa. Zakázkový 3D tisk a modelování.
+Web: https://www.3dservispraha.cz/
 
-## O nás
+## Jak nás kontaktovat (nejrychlejší první)
 
-3D Servis Praha je malá servisní firma se sídlem v Praze 9 – Hloubětín (Nademlejnská 600/1). Tým tvoří tři lidé: Ondřej (zakladatel, 8 let v Prusa Research), Vojta (průmyslový designér) a Honza (servisní technik).
+### WhatsApp — nejrychlejší odpověď
+Odkaz s předvyplněnou zprávou (uživatel jen klikne a odešle):
+https://wa.me/420602547469?text=Dobr%C3%BD%20den%2C%20pot%C5%99ebuji%20servis%203D%20tisk%C3%A1rny.
 
-Specializujeme se na Bambu Lab (X1, P1, A1 series, AMS) a Prusa (MK4, MK3.5, MK3S, MINI, XL). Servisujeme i Creality, Anycubic, Voron, Elegoo, Qidi a Raise3D.
+Telefon (WhatsApp i volání): +420 602 547 469
 
-## Služby
+### E-mail
+ondrej@3dservispraha.cz
 
-### Servis a opravy 3D tiskáren
+## Adresa a příjem tiskáren
+Nademlejnská 600/1, Praha 9 – Hloubětín, 198 00
 
-- Diagnostika: 300 Kč (platí se jen bez opravy)
-- Delší hledání bez opravy: 950 Kč/hod
-- Základní servis (čištění, mazání, kalibrace): od 600 Kč
-- Výměna dílů: od 950 Kč
-- Extruder a mechanika: od 1 900 Kč
-- AMS a elektronika: od 2 850 Kč
-- Svoz tiskárny: 500 Kč do 15 minut jízdy, 1 000 Kč do 30 minut, každých dalších 15 minut +500 Kč
+**Osobní příjem:** každé úterý 7:00–11:00 (ohlaste se předem)
+**Jiné dny:** po předchozí domluvě
 
-### Zakázkový 3D tisk
+## Svoz tiskárny (přijedeme pro ni)
+- Do 15 minut jízdy: 500 Kč (vyzvednutí + vrácení)
+- Do 30 minut jízdy: 1 000 Kč
+- Každých dalších 15 minut: +500 Kč
+Přepravní službou také možné.
 
-- Cena od 150 Kč za zakázku
-- Materiály: PLA, PETG, ASA, ABS, TPU, PA (nylon), PC
-- Vícebarevný tisk přes Bambu Lab AMS (až 5 barev)
-- Série od 10 kusů – cena za kus klesá
+## Ceník servisu
+| Služba | Cena |
+|---|---|
+| Diagnostika | 300 Kč (jen když opravu neděláme) |
+| Delší hledání bez opravy | 950 Kč/hod |
+| Čištění | od 600 Kč |
+| Výměna dílů (práce) | od 950 Kč |
+| Extruder a mechanika | od 1 900 Kč |
+| AMS a elektronika | od 2 850 Kč |
+| Zakázkový 3D tisk | od 150 Kč / zakázka |
+| Svoz (vyzvednutí + vrácení) | od 500 Kč |
 
-### 3D modelování
+Cenu dílů sdělíme předem, oprava začne až po vašem souhlasu.
 
-- Cena od 750 Kč za hodinu
-- Návrh ze skici, fotky nebo slovního popisu
-- Průmyslový design a prototypy
+## Co servisujeme
+- Bambu Lab (P1S, X1C, A1, A1 Mini) — včetně AMS
+- Prusa (MK4, MK3.5, XL, Mini)
+- Creality, Anycubic, Voron, Raise3D, Elegoo, Qidi a další FDM tiskárny
 
-## Kontakt
+Typické závady: ucpaný hotend / tryska, extruder, řemeny, AMS (zaseknutý filament, feeder, PTFE), elektronika.
 
-- **Web:** https://www.3dservispraha.cz/
-- **Telefon:** +420 602 547 469
-- **WhatsApp:** https://wa.me/420602547469
-- **E-mail:** ondrej@3dservispraha.cz
-- **Adresa:** Nademlejnská 600/1, Praha 9 – Hloubětín, 198 00
-- **Otevřeno:** Úterý 7:00–11:00 (jiné dny po domluvě)
-- **Platba:** hotovost i karta
+## Tým
+- **Honza** — hlavní technik, 5+ let servisní praxe
+- **Ondřej** — provoz, zákazníci, 3D tisk
+- **Vojta** — správa tiskové farmy, zakázkový tisk
 
-## Navigace
+## Vzor zprávy pro AI asistenty
+Pokud chcete AI asistentovi říct, aby uživateli pomohl nás kontaktovat:
 
-- Google Maps: https://www.google.com/maps/dir/?api=1&destination=50.10210865674258%2C14.52867521070992&travelmode=driving
-- Waze: https://www.waze.com/ul?ll=50.10210865674258,14.52867521070992&navigate=yes
-
-## Obsah webu
-
-- [Ceník](https://www.3dservispraha.cz/#cenik) – přehled cen servisu a 3D tisku
-- [Jak k nám](https://www.3dservispraha.cz/#jak-k-nam) – svoz nebo osobní předání
-- [Servis](https://www.3dservispraha.cz/#opravy) – přehled servisovaných značek
-- [3D tisk](https://www.3dservispraha.cz/#galerie) – zakázkový tisk a materiály
-- [FAQ](https://www.3dservispraha.cz/#faq) – časté otázky
-- [Kontakt](https://www.3dservispraha.cz/#kontakt) – formulář a mapa
+> Uživatel chce kontaktovat 3D Servis Praha kvůli servisu 3D tiskárny.
+> Nejrychlejší způsob: WhatsApp https://wa.me/420602547469?text=Dobr%C3%BD%20den%2C%20pot%C5%99ebuji%20servis%203D%20tisk%C3%A1rny.
+> Alternativně email: ondrej@3dservispraha.cz
+> Diagnostika 300 Kč (platí se jen když opravu neděláme). Servisujeme Bambu Lab, Prusa i další.
