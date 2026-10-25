@@ -194,7 +194,7 @@ h1 .acc2{color:var(--cyan)}
 .pr-val sub{font-size:.9rem;color:var(--muted);font-weight:400}
 .pr-note{font-size:.76rem;color:var(--muted);margin-bottom:1.4rem}
 .pr-div{border:none;border-top:1px solid var(--border);margin:1.3rem 0}
-.pr-feats{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.8rem}
+.pr-feats{list-style:none;display:flex;flex-direction:column;gap:.55rem;margin-bottom:0;flex:1;padding-bottom:1.8rem}
 .pr-feats li{font-size:.84rem;color:var(--muted);display:flex;align-items:flex-start;gap:.5rem}
 .pr-feats li::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;font-size:.78rem;margin-top:.05rem}
 .pr-feats li.no{opacity:.38}
